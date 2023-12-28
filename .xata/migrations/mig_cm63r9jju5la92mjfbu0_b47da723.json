@@ -1,0 +1,11 @@
+{
+  "id": "mig_cm63r9jju5la92mjfbu0",
+  "checksum": "1:b47da723b7e4e688bef37cac298ce9836f72ddb7acb1b50206e980aef689b8de",
+  "operations": [
+    {
+      "addTable": {
+        "table": "folders"
+      }
+    }
+  ]
+}

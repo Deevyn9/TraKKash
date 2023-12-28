@@ -1,0 +1,6 @@
+{
+  "databaseURL": "https://Divine-Obeten-s-workspace-nhjl9n.us-east-1.xata.sh/db/traKKash",
+  "codegen": {
+    "output": "src/xata.ts"
+  }
+}
