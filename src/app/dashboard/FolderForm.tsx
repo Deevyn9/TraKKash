@@ -1,24 +1,23 @@
+"use client";
 import { getXataClient } from "@/xata";
-import React from "react";
-import { z } from "zod";
+import { revalidatePath } from "next/cache";
+import React, { useRef } from "react";
 
-const schema = z.object({
-  name: z.string().min(5),
-});
+export default function FolderForm({
+  handleCreateFolder,
+}: {
+  handleCreateFolder: (formData: FormData) => void;
+}) {
+  const ref = useRef<HTMLFormElement>(null);
 
-export default function FolderForm() {
-  async function createFolder(formData: FormData) {
-    "use server";
-    const parsedForm = schema.parse({
-      name: formData.get("name"),
-    });
-    const xataClient = getXataClient();
-    await xataClient.db.folders.create(parsedForm);
-  }
   return (
     <form
       className="mb-4 w-full flex gap-x-2 items-center"
-      action={createFolder}
+      action={(formData) => {
+        handleCreateFolder(formData);
+        ref.current?.reset();
+      }}
+      ref={ref}
     >
       <div className="grow">
         <label

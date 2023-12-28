@@ -9,7 +9,10 @@ import type {
 const tables = [
   {
     name: "folders",
-    columns: [{ name: "name", type: "string", unique: true }],
+    columns: [
+      { name: "name", type: "string", unique: true },
+      { name: "userId", type: "string", notNull: true, defaultValue: "null" },
+    ],
   },
 ] as const;
 
