@@ -7,6 +7,8 @@ import React from "react";
 export default function Nav() {
   const { user, isLoaded } = useUser();
 
+  const username = user?.firstName;
+
   return (
     <header>
       <nav
@@ -20,7 +22,7 @@ export default function Nav() {
         </div>
         {isLoaded && user && (
           <>
-            <Link href="/dashboard">Dashboard</Link>
+            <p className="mr-3">Hi, {username}</p>
             <UserButton afterSignOutUrl="/" />
           </>
         )}
