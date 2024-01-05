@@ -3,7 +3,7 @@ import Sidebar from "../ui/dashboard/sidebar/sidebar"
 
 const Layout = ({children}) => {
     return (
-        <div>
+        <div className="relative">
             <div>
                 <Nav />
             </div>
