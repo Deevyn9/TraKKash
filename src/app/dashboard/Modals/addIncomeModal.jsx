@@ -7,7 +7,7 @@ const AddIncomeModal = ({ isOpen, closeIncomeModal }) => {
     <div
       className={`${
         isOpen ? "flex" : "hidden"
-      } justify-center items-center bg-yellow-500 h-screen w-screen absolute top-0 left-0 z-50`}
+      } modal-bg justify-center items-center  h-screen w-screen absolute top-0 left-0 z-50`}
     >
       <div className="p-3 rounded-3xl bg-blue-900 w-96 h-max">
         <div

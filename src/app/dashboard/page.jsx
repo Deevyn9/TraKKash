@@ -39,13 +39,13 @@ const Dashboard = () => {
         <p className="text-7xl font-bold mb-5">$2,000</p>
         <div>
           <button
-            className="bg-green-500 w-28 h-10 text-white rounded-lg outline-none cursor-pointer mr-5"
+            className="dash-btn bg-green-500 cursor-pointer mr-5"
             onClick={() => handleOpenIncomeModal()}
           >
             Add Income
           </button>
           <button
-            className="bg-red-500 w-28 h-10 text-white rounded-lg outline-none cursor-pointer"
+            className="dash-btn bg-red-500  cursor-pointer"
             onClick={() => handleOpenExpenseModal()}
           >
             Add Expense
