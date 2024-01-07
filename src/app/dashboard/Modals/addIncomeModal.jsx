@@ -1,8 +1,32 @@
-import React from "react";
+import { React, useRef } from "react";
 import CloseIcon from "../../../../public/assets/close.png";
 import { Image } from "next/dist/client/image-component";
 
+import { db } from "./../../../../firebase/index";
+import { collection, addDoc } from "firebase/firestore";
+
 const AddIncomeModal = ({ isOpen, closeIncomeModal }) => {
+  const amountRef = useRef();
+  const descriptionRef = useRef();
+
+  const addIncomeHandler = async (e) => {
+    e.preventDefault();
+
+    const newIncome = {
+      amount: amountRef.current.value,
+      description: descriptionRef.current.value,
+      createdAt: new Date(),
+    };
+
+    const collectionRef = collection(db, "income");
+
+    try {
+      const docSnap = await addDoc(collectionRef, newIncome);
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+
   return (
     <div
       className={`${
@@ -16,7 +40,7 @@ const AddIncomeModal = ({ isOpen, closeIncomeModal }) => {
         >
           <Image src={CloseIcon} alt="close Icon" />
         </div>
-        <form className="my-10">
+        <form onSubmit={addIncomeHandler} className="my-10">
           <div className="flex flex-col mb-5">
             <label htmlFor="Income Amount" className="text-white mb-2">
               Income Amount
@@ -27,6 +51,7 @@ const AddIncomeModal = ({ isOpen, closeIncomeModal }) => {
               min={0.01}
               step={0.01}
               placeholder="$0.00"
+              ref={amountRef}
               required
               className="h-10 rounded-md p-3 outline-none"
             />
@@ -41,6 +66,7 @@ const AddIncomeModal = ({ isOpen, closeIncomeModal }) => {
               name="description"
               placeholder="describe payment"
               required
+              ref={descriptionRef}
               className="h-10 rounded-md p-3 outline-none"
             />
           </div>
