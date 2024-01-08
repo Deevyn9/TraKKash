@@ -2,7 +2,13 @@ import Image from "next/image";
 import CloseIcon from "../../../../public/assets/close.png";
 import React from "react";
 
-const AddExpenseModal = ({ isOpen, closeExpenseModal }) => {
+const AddExpenseModal = ({
+  isOpen,
+  closeExpenseModal,
+  addExpenseHandler,
+  expenseDescriptionRef,
+  expenseAmountRef,
+}) => {
   return (
     <div
       className={`${
@@ -16,7 +22,7 @@ const AddExpenseModal = ({ isOpen, closeExpenseModal }) => {
         >
           <Image src={CloseIcon} alt="close Icon" />
         </div>
-        <form className="my-7">
+        <form className="my-7" onSubmit={addExpenseHandler}>
           <div className="flex flex-col mb-5">
             <label htmlFor="Expense Amount" className="text-white mb-2">
               Expense Amount
@@ -27,6 +33,7 @@ const AddExpenseModal = ({ isOpen, closeExpenseModal }) => {
               min={0.01}
               step={0.01}
               placeholder="$0.00"
+              ref={expenseAmountRef}
               required
               className="h-10 rounded-md p-3 outline-none"
             />
@@ -40,6 +47,7 @@ const AddExpenseModal = ({ isOpen, closeExpenseModal }) => {
               type="text"
               name="description"
               placeholder="describe payment"
+              ref={expenseDescriptionRef}
               required
               className="h-10 rounded-md p-3 outline-none"
             />
@@ -49,7 +57,7 @@ const AddExpenseModal = ({ isOpen, closeExpenseModal }) => {
             type="submit"
             className="mt-7 bg-green-500 rounded-md text-white px-3 py-2 self-end"
           >
-            Add Income
+            Add Expense
           </button>
         </form>
       </div>

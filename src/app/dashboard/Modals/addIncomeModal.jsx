@@ -2,31 +2,13 @@ import { React, useRef } from "react";
 import CloseIcon from "../../../../public/assets/close.png";
 import { Image } from "next/dist/client/image-component";
 
-import { db } from "./../../../../firebase/index";
-import { collection, addDoc } from "firebase/firestore";
-
-const AddIncomeModal = ({ isOpen, closeIncomeModal }) => {
-  const amountRef = useRef();
-  const descriptionRef = useRef();
-
-  const addIncomeHandler = async (e) => {
-    e.preventDefault();
-
-    const newIncome = {
-      amount: amountRef.current.value,
-      description: descriptionRef.current.value,
-      createdAt: new Date(),
-    };
-
-    const collectionRef = collection(db, "income");
-
-    try {
-      const docSnap = await addDoc(collectionRef, newIncome);
-    } catch (error) {
-      console.log(error.message);
-    }
-  };
-
+const AddIncomeModal = ({
+  isOpen,
+  closeIncomeModal,
+  incomeDescriptionRef,
+  incomeAmountRef,
+  addIncomeHandler,
+}) => {
   return (
     <div
       className={`${
@@ -51,7 +33,7 @@ const AddIncomeModal = ({ isOpen, closeIncomeModal }) => {
               min={0.01}
               step={0.01}
               placeholder="$0.00"
-              ref={amountRef}
+              ref={incomeAmountRef}
               required
               className="h-10 rounded-md p-3 outline-none"
             />
@@ -66,7 +48,7 @@ const AddIncomeModal = ({ isOpen, closeIncomeModal }) => {
               name="description"
               placeholder="describe payment"
               required
-              ref={descriptionRef}
+              ref={incomeDescriptionRef}
               className="h-10 rounded-md p-3 outline-none"
             />
           </div>
