@@ -3,7 +3,8 @@ import { useRef, useState } from "react";
 import AddExpenseModal from "./Modals/addExpenseModal";
 import AddIncomeModal from "./Modals/addIncomeModal";
 import { db } from "../../../firebase/index";
-import { collection, addDoc } from "firebase/firestore";
+import { collection, doc, query, getDocs, addDoc } from "firebase/firestore";
+import { useClerk } from "@clerk/nextjs";
 
 const Dashboard = () => {
   const [isAddIncomeModalOpen, setIsAddIncomeModalOpen] = useState(false);
@@ -13,21 +14,22 @@ const Dashboard = () => {
   const expenseAmountRef = useRef();
   const expenseDescriptionRef = useRef();
 
-  function handleOpenIncomeModal() {
-    setIsAddIncomeModalOpen(true);
-  }
+  // get user info
+  const { user } = useClerk();
+  const userId = user?.id;
 
-  function handleCloseIncomeModal() {
-    setIsAddIncomeModalOpen(false);
-  }
+  // firebase reference
+  const userCollectionRef = collection(db, "users");
+  const userDocRef = doc(userCollectionRef, userId);
+  const logsCollectionRef = collection(userDocRef, "logs");
 
-  function handleOpenExpenseModal() {
-    setIsAddExpenseModalOpen(true);
-  }
+  const handleOpenIncomeModal = () => setIsAddIncomeModalOpen(true);
 
-  function handleCloseExpenseModal() {
-    setIsAddExpenseModalOpen(false);
-  }
+  const handleCloseIncomeModal = () => setIsAddIncomeModalOpen(false);
+
+  const handleOpenExpenseModal = () => setIsAddExpenseModalOpen(true);
+
+  const handleCloseExpenseModal = () => setIsAddExpenseModalOpen(false);
 
   const addIncomeHandler = async (e) => {
     e.preventDefault();
@@ -36,12 +38,13 @@ const Dashboard = () => {
       amount: incomeAmountRef.current.value,
       description: incomeDescriptionRef.current.value,
       createdAt: new Date(),
+      //   userId: userId,
     };
 
-    const incomeCollectionRef = collection(db, "income");
+    // const incomeCollectionRef = collection(db, "income");
 
     try {
-      const docSnap = await addDoc(incomeCollectionRef, newIncome);
+      const docSnap = await addDoc(logsCollectionRef, newIncome);
     } catch (error) {
       console.log(error.message);
     }
@@ -54,12 +57,13 @@ const Dashboard = () => {
       amount: expenseAmountRef.current.value,
       description: expenseDescriptionRef.current.value,
       createdAt: new Date(),
+      //   userId: userId,
     };
 
-    const expenseCollectionRef = collection(db, "expense");
+    // const expenseCollectionRef = collection(db, "expense");
 
     try {
-      const docSnap = await addDoc(expenseCollectionRef, newExpense);
+      const docSnap = await addDoc(logsCollectionRef, newExpense);
     } catch (error) {
       console.log(error.message);
     }
