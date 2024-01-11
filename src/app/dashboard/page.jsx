@@ -35,6 +35,7 @@ const Dashboard = () => {
     e.preventDefault();
 
     const newIncome = {
+      type: "income",
       amount: incomeAmountRef.current.value,
       description: incomeDescriptionRef.current.value,
       createdAt: new Date(),
@@ -54,6 +55,7 @@ const Dashboard = () => {
     e.preventDefault();
 
     const newExpense = {
+      type: "expense",
       amount: expenseAmountRef.current.value,
       description: expenseDescriptionRef.current.value,
       createdAt: new Date(),
