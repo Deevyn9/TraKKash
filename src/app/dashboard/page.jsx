@@ -2,9 +2,9 @@
 import { useRef, useState } from "react";
 import AddExpenseModal from "./Modals/addExpenseModal";
 import AddIncomeModal from "./Modals/addIncomeModal";
-import { db } from "../../../firebase/index";
+import { useClerk, useUser } from "@clerk/nextjs";
 import { collection, doc, query, getDocs, addDoc } from "firebase/firestore";
-import { useClerk } from "@clerk/nextjs";
+import { db } from "../../../firebase/index";
 
 const Dashboard = () => {
   const [isAddIncomeModalOpen, setIsAddIncomeModalOpen] = useState(false);
@@ -13,11 +13,13 @@ const Dashboard = () => {
   const incomeDescriptionRef = useRef();
   const expenseAmountRef = useRef();
   const expenseDescriptionRef = useRef();
+  const { user } = useUser();
 
-  // get user info
-  const { user } = useClerk();
-  const userId = user?.id;
+  if (!user) {
+    return <div>Loading...</div>;
+  }
 
+  const userId = user.id;
   // firebase reference
   const userCollectionRef = collection(db, "users");
   const userDocRef = doc(userCollectionRef, userId);
