@@ -1,12 +1,21 @@
 "use client";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import AddExpenseModal from "./Modals/addExpenseModal";
 import AddIncomeModal from "./Modals/addIncomeModal";
-import { useClerk, useUser } from "@clerk/nextjs";
-import { collection, doc, query, getDocs, addDoc } from "firebase/firestore";
+import { useUser } from "@clerk/nextjs";
+import {
+  collection,
+  doc,
+  query,
+  getDocs,
+  addDoc,
+  where,
+} from "firebase/firestore";
 import { db } from "../../../firebase/index";
+import { currencyFormatter } from "../../../lib/utils";
 
 const Dashboard = () => {
+  const [balance, setBalance] = useState(0);
   const [isAddIncomeModalOpen, setIsAddIncomeModalOpen] = useState(false);
   const [isAddExpenseModalOpen, setIsAddExpenseModalOpen] = useState(false);
   const incomeAmountRef = useRef();
@@ -15,63 +24,100 @@ const Dashboard = () => {
   const expenseDescriptionRef = useRef();
   const { user } = useUser();
 
-  if (!user) {
-    return <div>Loading...</div>;
-  }
+  // Ref for logsCollection
+  const logsCollectionRef = useRef(null);
 
-  const userId = user.id;
-  // firebase reference
-  const userCollectionRef = collection(db, "users");
-  const userDocRef = doc(userCollectionRef, userId);
-  const logsCollectionRef = collection(userDocRef, "logs");
+  useEffect(() => {
+    if (user) {
+      const userId = user.id;
+      const userCollectionRef = collection(db, "users");
+      const userDocRef = doc(userCollectionRef, userId);
+      logsCollectionRef.current = collection(userDocRef, "logs");
+
+      const fetchTransactions = async () => {
+        try {
+          const incomeQuery = query(
+            logsCollectionRef.current,
+            where("type", "==", "income")
+          );
+          const expenseQuery = query(
+            logsCollectionRef.current,
+            where("type", "==", "expense")
+          );
+
+          const [incomeSnapshot, expenseSnapshot] = await Promise.all([
+            getDocs(incomeQuery),
+            getDocs(expenseQuery),
+          ]);
+
+          let totalIncome = 0;
+          let totalExpense = 0;
+
+          incomeSnapshot.forEach((doc) => {
+            totalIncome += doc.data().amount;
+          });
+
+          expenseSnapshot.forEach((doc) => {
+            totalExpense += doc.data().amount;
+          });
+
+          const newBalance = totalIncome - totalExpense;
+          setBalance(newBalance);
+        } catch (error) {
+          console.error("Error fetching transactions:", error);
+        }
+      };
+
+      fetchTransactions();
+    }
+  }, [user]);
 
   const handleOpenIncomeModal = () => setIsAddIncomeModalOpen(true);
-
   const handleCloseIncomeModal = () => setIsAddIncomeModalOpen(false);
-
   const handleOpenExpenseModal = () => setIsAddExpenseModalOpen(true);
-
   const handleCloseExpenseModal = () => setIsAddExpenseModalOpen(false);
 
   const addIncomeHandler = async (e) => {
     e.preventDefault();
 
-    const newIncome = {
-      type: "income",
-      amount: incomeAmountRef.current.value,
-      description: incomeDescriptionRef.current.value,
-      createdAt: new Date(),
-      //   userId: userId,
-    };
+    if (logsCollectionRef.current) {
+      const newIncome = {
+        type: "income",
+        amount: parseFloat(incomeAmountRef.current.value),
+        description: incomeDescriptionRef.current.value,
+        createdAt: new Date(),
+      };
 
-    // const incomeCollectionRef = collection(db, "income");
-
-    try {
-      const docSnap = await addDoc(logsCollectionRef, newIncome);
-    } catch (error) {
-      console.log(error.message);
+      try {
+        await addDoc(logsCollectionRef.current, newIncome);
+      } catch (error) {
+        console.error("Error adding income:", error.message);
+      }
     }
   };
 
   const addExpenseHandler = async (e) => {
     e.preventDefault();
 
-    const newExpense = {
-      type: "expense",
-      amount: expenseAmountRef.current.value,
-      description: expenseDescriptionRef.current.value,
-      createdAt: new Date(),
-      //   userId: userId,
-    };
+    if (logsCollectionRef.current) {
+      const newExpense = {
+        type: "expense",
+        amount: parseFloat(expenseAmountRef.current.value),
+        description: expenseDescriptionRef.current.value,
+        createdAt: new Date(),
+      };
 
-    // const expenseCollectionRef = collection(db, "expense");
-
-    try {
-      const docSnap = await addDoc(logsCollectionRef, newExpense);
-    } catch (error) {
-      console.log(error.message);
+      try {
+        await addDoc(logsCollectionRef.current, newExpense);
+      } catch (error) {
+        console.error("Error adding expense:", error.message);
+      }
     }
   };
+
+  if (!user) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <div className="p-5">
@@ -92,7 +138,7 @@ const Dashboard = () => {
 
       <div>
         <h3 className="text-2xl">My Balance</h3>
-        <p className="text-7xl font-bold mb-5">$2,000</p>
+        <p className="text-7xl font-bold mb-5">{currencyFormatter(balance)}</p>
         <div>
           <button
             className="dash-btn bg-green-500 cursor-pointer mr-5"
