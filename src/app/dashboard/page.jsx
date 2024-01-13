@@ -10,6 +10,7 @@ import {
   getDocs,
   addDoc,
   where,
+  onSnapshot,
 } from "firebase/firestore";
 import { db } from "../../../firebase/index";
 import { currencyFormatter } from "../../../lib/utils";
@@ -35,37 +36,68 @@ const Dashboard = () => {
       logsCollectionRef.current = collection(userDocRef, "logs");
 
       const fetchTransactions = async () => {
-        try {
-          const incomeQuery = query(
-            logsCollectionRef.current,
-            where("type", "==", "income")
-          );
-          const expenseQuery = query(
-            logsCollectionRef.current,
-            where("type", "==", "expense")
-          );
+        // try {
+        const incomeQuery = query(
+          logsCollectionRef.current,
+          where("type", "==", "income")
+        );
+        const expenseQuery = query(
+          logsCollectionRef.current,
+          where("type", "==", "expense")
+        );
 
-          const [incomeSnapshot, expenseSnapshot] = await Promise.all([
-            getDocs(incomeQuery),
-            getDocs(expenseQuery),
-          ]);
+        //   const [incomeSnapshot, expenseSnapshot] = await Promise.all([
+        //     getDocs(incomeQuery),
+        //     getDocs(expenseQuery),
+        //   ]);
 
-          let totalIncome = 0;
-          let totalExpense = 0;
+        //   let totalIncome = 0;
+        //   let totalExpense = 0;
 
+        //   incomeSnapshot.forEach((doc) => {
+        //     totalIncome += doc.data().amount;
+        //   });
+
+        //   expenseSnapshot.forEach((doc) => {
+        //     totalExpense += doc.data().amount;
+        //   });
+
+        let totalIncome = 0;
+        let totalExpense = 0;
+
+        const unsubscribeIncome = onSnapshot(incomeQuery, (incomeSnapshot) => {
+          totalIncome = 0;
           incomeSnapshot.forEach((doc) => {
             totalIncome += doc.data().amount;
           });
 
-          expenseSnapshot.forEach((doc) => {
-            totalExpense += doc.data().amount;
-          });
-
           const newBalance = totalIncome - totalExpense;
           setBalance(newBalance);
-        } catch (error) {
-          console.error("Error fetching transactions:", error);
-        }
+        });
+
+        const unsubscribeExpense = onSnapshot(
+          expenseQuery,
+          (expenseSnapshot) => {
+            totalExpense = 0;
+            expenseSnapshot.forEach((doc) => {
+              totalExpense += doc.data().amount;
+            });
+
+            const newBalance = totalIncome - totalExpense;
+            setBalance(newBalance);
+          }
+        );
+
+        //   const newBalance = totalIncome - totalExpense;
+        //   setBalance(newBalance);
+        // } catch (error) {
+        //   console.error("Error fetching transactions:", error);
+        // }
+
+        return () => {
+          unsubscribeIncome();
+          unsubscribeExpense();
+        };
       };
 
       fetchTransactions();
