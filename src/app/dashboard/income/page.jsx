@@ -2,7 +2,7 @@
 import { useState, useEffect } from "react";
 import { currencyFormatter } from "../../../../lib/utils";
 import { db } from "../../../../firebase";
-import { collection, query, where, getDocs } from "firebase/firestore";
+import { collection, query, getDocs, where } from "firebase/firestore";
 import { useUser } from "@clerk/nextjs";
 
 const IncomePage = () => {
@@ -13,7 +13,10 @@ const IncomePage = () => {
     const getIncomeData = async () => {
       if (user) {
         const userId = user.id;
-        const logsQuery = query(collection(db, "users", userId, "logs"));
+        const logsQuery = query(
+          collection(db, "users", userId, "logs"),
+          where("type", "==", "income")
+        );
 
         try {
           const snapshot = await getDocs(logsQuery);
