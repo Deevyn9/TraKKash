@@ -2,29 +2,35 @@
 import { useState, useEffect } from "react";
 import { currencyFormatter } from "../../../../lib/utils";
 import { db } from "../../../../firebase";
-import { collection, addDoc, getDocs } from "firebase/firestore";
+import { collection, query, where, getDocs } from "firebase/firestore";
+import { useUser } from "@clerk/nextjs";
 
 const IncomePage = () => {
   const [income, setIncome] = useState([]);
-  //   console.log(income);
+  const { user } = useUser();
 
   useEffect(() => {
     const getIncomeData = async () => {
-      const collectionRef = collection(db, "income");
-      const docsSnap = await getDocs(collectionRef);
+      if (user) {
+        const userId = user.id;
+        const logsQuery = query(collection(db, "users", userId, "logs"));
 
-      const data = docsSnap.docs.map((doc) => {
-        return {
-          id: doc.id,
-          ...doc.data(),
-          createdAt: new Date(doc.data().createdAt.toMillis()),
-        };
-      });
-      setIncome(data);
+        try {
+          const snapshot = await getDocs(logsQuery);
+          const incomeData = snapshot.docs.map((doc) => ({
+            id: doc.id,
+            ...doc.data(),
+            createdAt: new Date(doc.data().createdAt.toMillis()),
+          }));
+          setIncome(incomeData);
+        } catch (error) {
+          console.error("Error fetching income data", error);
+        }
+      }
     };
 
     getIncomeData();
-  }, []);
+  }, [user]);
 
   return (
     <div>
