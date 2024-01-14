@@ -2,28 +2,38 @@
 import { useState, useEffect, use } from "react";
 import { currencyFormatter } from "../../../../lib/utils";
 import { db } from "../../../../firebase";
-import { collection, addDoc, getDocs } from "firebase/firestore";
+import { collection, query, getDocs, where } from "firebase/firestore";
+import { useUser } from "@clerk/nextjs";
 
 const ExpensesPage = () => {
   const [expense, setExpense] = useState([]);
+  const { user } = useUser();
 
   useEffect(() => {
     const getExpenseData = async () => {
-      const collectionRef = collection(db, "expense");
-      const docsSnap = await getDocs(collectionRef);
+      if (user) {
+        const userId = user.id;
+        const logsQuery = query(
+          collection(db, "users", userId, "logs"),
+          where("type", "==", "expense")
+        );
 
-      const data = docsSnap.docs.map((doc) => {
-        return {
-          id: doc.id,
-          ...doc.data(),
-          createdAt: new Date(doc.data().createdAt.toMillis()),
-        };
-      });
-      setExpense(data);
+        try {
+          const snapshot = await getDocs(logsQuery);
+          const expenseData = snapshot.docs.map((doc) => ({
+            id: doc.id,
+            ...doc.data(),
+            createdAt: new Date(doc.data().createdAt.toMillis()),
+          }));
+          setExpense(expenseData);
+        } catch (error) {
+          console.error("Error fetching expense data", error);
+        }
+      }
     };
 
     getExpenseData();
-  }, []);
+  }, [user]);
 
   return (
     <div>
