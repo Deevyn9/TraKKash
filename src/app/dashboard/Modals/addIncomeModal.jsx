@@ -8,6 +8,7 @@ const AddIncomeModal = ({
   incomeDescriptionRef,
   incomeAmountRef,
   addIncomeHandler,
+  confirmIncome,
 }) => {
   return (
     <div
@@ -15,6 +16,11 @@ const AddIncomeModal = ({
         isOpen ? "flex" : "hidden"
       } modal-bg justify-center items-center  h-screen w-screen absolute top-0 left-0 z-50`}
     >
+      {confirmIncome && (
+        <div className="absolute right-5 top-5 bg-green-500">
+          <p>Income Added Successfully</p>
+        </div>
+      )}
       <div className="p-3 rounded-3xl bg-blue-900 w-96 h-max">
         <div
           className="flex items-center justify-center cursor-pointer font-2 rounded-full bg-white w-8 h-8 hover:scale-105 self-end transition-all"

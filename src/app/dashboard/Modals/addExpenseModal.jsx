@@ -8,6 +8,7 @@ const AddExpenseModal = ({
   addExpenseHandler,
   expenseDescriptionRef,
   expenseAmountRef,
+  confirmExpense,
 }) => {
   return (
     <div
@@ -15,6 +16,11 @@ const AddExpenseModal = ({
         isOpen ? "flex" : "hidden"
       } justify-center items-center modal-bg h-screen w-screen absolute top-0 left-0 z-50`}
     >
+      {confirmExpense && (
+        <div className="absolute right-5 top-5 bg-green-500">
+          <p>Sad to see our money go!</p>
+        </div>
+      )}
       <div className="p-3 rounded-3xl bg-blue-900 w-96 h-max">
         <div
           className="flex items-center justify-center cursor-pointer font-2 rounded-full bg-white w-8 h-8 hover:scale-105 self-end transition-all"
