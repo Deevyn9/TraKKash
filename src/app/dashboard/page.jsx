@@ -19,6 +19,8 @@ const Dashboard = () => {
   const [balance, setBalance] = useState(0);
   const [isAddIncomeModalOpen, setIsAddIncomeModalOpen] = useState(false);
   const [isAddExpenseModalOpen, setIsAddExpenseModalOpen] = useState(false);
+  const [confirmIncome, setConfirmIncome] = useState(false);
+  const [confirmExpense, setConfirmExpense] = useState(false);
   const incomeAmountRef = useRef();
   const incomeDescriptionRef = useRef();
   const expenseAmountRef = useRef();
@@ -125,6 +127,13 @@ const Dashboard = () => {
       } catch (error) {
         console.error("Error adding income:", error.message);
       }
+
+      setConfirmIncome(true);
+      setTimeout(() => {
+        setConfirmIncome(false);
+      }, 3000);
+      incomeAmountRef.current.value = "";
+      incomeDescriptionRef.current.value = "";
     }
   };
 
@@ -144,6 +153,13 @@ const Dashboard = () => {
       } catch (error) {
         console.error("Error adding expense:", error.message);
       }
+
+      setConfirmExpense(true);
+      setTimeout(() => {
+        setConfirmExpense(false);
+      }, 3000);
+      expenseAmountRef.current.value = "";
+      expenseDescriptionRef.current.value = "";
     }
   };
 
@@ -159,6 +175,7 @@ const Dashboard = () => {
         incomeDescriptionRef={incomeDescriptionRef}
         incomeAmountRef={incomeAmountRef}
         addIncomeHandler={addIncomeHandler}
+        confirmIncome={confirmIncome}
       />
       <AddExpenseModal
         isOpen={isAddExpenseModalOpen}
@@ -166,6 +183,7 @@ const Dashboard = () => {
         expenseDescriptionRef={expenseDescriptionRef}
         expenseAmountRef={expenseAmountRef}
         addExpenseHandler={addExpenseHandler}
+        confirmExpense={confirmExpense}
       />
 
       <div>
