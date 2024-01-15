@@ -11,20 +11,29 @@ export default function Home() {
   }
 
   return (
-    <main className="">
+    <main className="flex flex-col justify-center items-center w-screen h-screen">
+      <div className="mb-8">
+        <h1 className="font-black text-5xl text-center sm:text-9xl">
+          traKKash<span className="text-green-500">.</span>
+        </h1>
+        <p className="text-lg sm:text-2xl text-center">
+          Know where your money goes<span className="text-green-500">!</span>
+        </p>
+      </div>
+
       <div className="flex gap-5">
         <Link
           href="/sign-in"
-          className="border-2 border-solid border-red-500 bg-red-500 rounded-md p-2"
+          className="sm:border-8 border-solid border-green-500 bg-green-500 rounded-md w-28 h-10 sm:py-2 sm:px-10 transition-all hover:bg-transparent text-lg"
         >
-          <button>Sign In</button>
+          <button className="w-full h-full">Sign In</button>
         </Link>
 
         <Link
           href="/sign-up"
-          className="border-2 border-solid border-red-500 rounded-md p-2"
+          className="sm:border-8 border-2 border-solid border-green-500 rounded-md w-28 h-10 sm:py-2 sm:px-10 transition-all hover:bg-green-500 text-lg"
         >
-          <button>Sign Up</button>
+          <button className="w-full h-full">Sign Up</button>
         </Link>
       </div>
     </main>

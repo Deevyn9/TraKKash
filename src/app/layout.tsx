@@ -18,8 +18,7 @@ export default function RootLayout({
   return (
     <ClerkProvider>
       <html lang="en">
-        <body className="">
-          {/* <Nav /> */}
+        <body className="bg-black text-white">
           <div className="">{children}</div>
         </body>
       </html>
