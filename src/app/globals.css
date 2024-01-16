@@ -12,3 +12,24 @@
         @apply w-28 h-10 text-white rounded-lg outline-none cursor-pointer mr-5;
     }
 }
+
+.sun {
+    border-radius: 40% 40% 0 0;
+    top: 80vh;
+    animation: move 5s ease-in-out infinite alternate;
+}
+
+@keyframes move {
+    from {
+        left: 0;
+    } to {
+        left: 50px;
+    }
+}
+
+@media (max-width: 640px) {
+    .home-btn {
+        width: 120px;
+        height: 50px;
+    }   
+}
