@@ -1,21 +1,21 @@
-import Link from "next/link"
+import Link from "next/link";
 
 const Sidebar = () => {
-    return (
-        <div className="w-52 border-2 border-dashed border-yellow-500 h-screen">
-            <ul>
-            <Link href="/dashboard">
-                    <li>main dash</li>
-                </Link>
-                <Link href="/dashboard/income">
-                    <li>income</li>
-                </Link>
-                <Link href="/dashboard/expenses">
-                    <li>expenses</li>
-                </Link>
-            </ul>
-        </div>
-    )
-}
+  return (
+    <div className="lg:nav-side__container hidden w-52 border-2 border-dashed border-yellow-500 h-full">
+      <ul className="nav-side">
+        <Link href="/dashboard">
+          <li className="">main dash</li>
+        </Link>
+        <Link href="/dashboard/income">
+          <li>income</li>
+        </Link>
+        <Link href="/dashboard/expenses">
+          <li>expenses</li>
+        </Link>
+      </ul>
+    </div>
+  );
+};
 
-export default Sidebar
+export default Sidebar;

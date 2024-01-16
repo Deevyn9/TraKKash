@@ -36,7 +36,7 @@ const ExpensesPage = () => {
   }, [user]);
 
   return (
-    <div>
+    <div className="overflow-scroll">
       {expense.map((i) => {
         return (
           <div key={i.id}>

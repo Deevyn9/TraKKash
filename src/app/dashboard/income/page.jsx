@@ -36,7 +36,7 @@ const IncomePage = () => {
   }, [user]);
 
   return (
-    <div>
+    <div className="overflow-scroll">
       {income.map((i) => {
         return (
           <div key={i.id}>

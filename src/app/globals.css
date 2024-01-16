@@ -2,15 +2,25 @@
 @tailwind components;
 @tailwind utilities;
 
-.modal-bg {
-    background-color: rgba(0, 0, 0, 0.734);
-
-}
-
 @layer utilities {
     .dash-btn {
         @apply w-28 h-10 text-white rounded-lg outline-none cursor-pointer mr-5;
     }
+}
+
+@layer components {
+    .nav-side__container {
+        @apply flex items-center justify-center p-2;
+    }
+    
+    .nav-side {
+        @apply  w-full h-full border-purple-500 border-2 border-solid rounded-xl px-4;
+    }
+}
+
+.modal-bg {
+    background-color: rgba(0, 0, 0, 0.734);
+
 }
 
 .sun {
@@ -32,4 +42,8 @@
         width: 120px;
         height: 50px;
     }   
+}
+
+.dashboard {
+    height: calc(100vh - 100px);
 }

@@ -168,7 +168,7 @@ const Dashboard = () => {
   }
 
   return (
-    <div className="p-5">
+    <div className="p-5 overflow-scroll">
       <AddIncomeModal
         isOpen={isAddIncomeModalOpen}
         closeIncomeModal={handleCloseIncomeModal}
