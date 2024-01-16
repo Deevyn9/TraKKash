@@ -41,7 +41,7 @@ const AddIncomeModal = ({
               placeholder="$0.00"
               ref={incomeAmountRef}
               required
-              className="h-10 rounded-md p-3 outline-none"
+              className="h-10 rounded-md p-3 outline-none text-black"
             />
           </div>
 
@@ -55,7 +55,7 @@ const AddIncomeModal = ({
               placeholder="describe payment"
               required
               ref={incomeDescriptionRef}
-              className="h-10 rounded-md p-3 outline-none"
+              className="h-10 rounded-md p-3 outline-none text-black"
             />
           </div>
 

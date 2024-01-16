@@ -36,16 +36,18 @@ const IncomePage = () => {
   }, [user]);
 
   return (
-    <div className="overflow-scroll">
-      {income.map((i) => {
-        return (
-          <div key={i.id}>
-            <div className="font-semi-bold">{i.description}</div>
-            <small>{i.createdAt.toISOString()}</small>
-            <p>{currencyFormatter(i.amount)}</p>
-          </div>
-        );
-      })}
+    <div className="nav-side__container w-full">
+      <div className="overflow-scroll nav-side">
+        {income.map((i) => {
+          return (
+            <div key={i.id}>
+              <div className="font-semi-bold">{i.description}</div>
+              <small>{i.createdAt.toISOString()}</small>
+              <p>{currencyFormatter(i.amount)}</p>
+            </div>
+          );
+        })}
+      </div>
     </div>
   );
 };

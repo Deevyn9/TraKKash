@@ -41,7 +41,7 @@ const AddExpenseModal = ({
               placeholder="$0.00"
               ref={expenseAmountRef}
               required
-              className="h-10 rounded-md p-3 outline-none"
+              className="h-10 rounded-md p-3 outline-none text-black"
             />
           </div>
 
@@ -55,7 +55,7 @@ const AddExpenseModal = ({
               placeholder="describe payment"
               ref={expenseDescriptionRef}
               required
-              className="h-10 rounded-md p-3 outline-none"
+              className="h-10 rounded-md p-3 outline-none text-black"
             />
           </div>
 

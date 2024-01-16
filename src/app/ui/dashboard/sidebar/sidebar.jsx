@@ -2,7 +2,7 @@ import Link from "next/link";
 
 const Sidebar = () => {
   return (
-    <div className="lg:nav-side__container hidden w-52 border-2 border-dashed border-yellow-500 h-full">
+    <div className="md:nav-side__container hidden w-52 h-full">
       <ul className="nav-side">
         <Link href="/dashboard">
           <li className="">main dash</li>

@@ -3,7 +3,7 @@ import Sidebar from "../ui/dashboard/sidebar/sidebar";
 
 const Layout = ({ children }) => {
   return (
-    <div className="relative overflow-hidden border-2 border-solid border-pink-400">
+    <div className="overflow-hidden">
       <div>
         <Nav />
       </div>
