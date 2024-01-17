@@ -1,6 +1,7 @@
 "use client";
 import { useUser } from "@clerk/nextjs";
 import { UserButton } from "@clerk/nextjs";
+import Link from "next/link";
 import React, { useState } from "react";
 
 export default function Nav() {
@@ -20,7 +21,37 @@ export default function Nav() {
         className="nav-side flex justify-between items-center"
       >
         <div className="md:hidden z-50" onClick={handleOpenNav}>
-          B
+          {openNav ? (
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              strokeWidth={1.5}
+              stroke="currentColor"
+              className="w-6 h-6"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M6 18 18 6M6 6l12 12"
+              />
+            </svg>
+          ) : (
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              strokeWidth={1.5}
+              stroke="currentColor"
+              className="w-6 h-6"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M3.75 9h16.5m-16.5 6.75h16.5"
+              />
+            </svg>
+          )}
         </div>
         <div className="flex lg:flex-1">
           <a href="/" className="-m-1.5 p-1.5">
@@ -37,9 +68,35 @@ export default function Nav() {
       {openNav && (
         <div
           className={`absolute w-screen h-screen top-0 ${
-            openNav ? "left-0 bg-red-500" : "-left-8 bg-white"
-          }`}
-        ></div>
+            openNav ? "left-0 bg-black" : "-left-8 bg-white"
+          } p-2`}
+        >
+          <div className="border-2 border-solid border-purple-500 w-full h-full rounded-lg">
+            <ul className="mt-28">
+              <Link
+                href="/dashboard"
+                onClick={handleOpenNav}
+                className="burger-links"
+              >
+                <li className="burger-links__main">main dash</li>
+              </Link>
+              <Link
+                href="/dashboard/income"
+                onClick={handleOpenNav}
+                className="burger-links"
+              >
+                <li className="burger-links__main">income</li>
+              </Link>
+              <Link
+                href="/dashboard/expenses"
+                onClick={handleOpenNav}
+                className="burger-links"
+              >
+                <li className="burger-links__main">expenses</li>
+              </Link>
+            </ul>
+          </div>
+        </div>
       )}
     </header>
   );

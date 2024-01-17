@@ -16,6 +16,22 @@
     .nav-side {
         @apply  w-full h-full border-purple-500 border-2 border-solid rounded-xl px-4;
     }
+
+    .burger-links {
+        @apply text-2xl capitalize ;
+    }
+
+    .burger-links__main {
+        @apply h-20 grid place-items-center mb-10;
+    }
+
+    .sidebar-links {
+        @apply capitalize;
+    }
+
+    .sidebar-links__main {
+        @apply h-20 flex mt-5 items-center text-xl;
+    }
 }
 
 .modal-bg {
