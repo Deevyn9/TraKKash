@@ -21,6 +21,8 @@ const Dashboard = () => {
   const [isAddExpenseModalOpen, setIsAddExpenseModalOpen] = useState(false);
   const [confirmIncome, setConfirmIncome] = useState(false);
   const [confirmExpense, setConfirmExpense] = useState(false);
+  const [totalIncome, setTotalIncome] = useState(0);
+  const [totalExpense, setTotalExpense] = useState(0);
   const incomeAmountRef = useRef();
   const incomeDescriptionRef = useRef();
   const expenseAmountRef = useRef();
@@ -30,6 +32,59 @@ const Dashboard = () => {
   // Ref for logsCollection
   const logsCollectionRef = useRef(null);
 
+  // useEffect(() => {
+  //   if (user) {
+  //     const userId = user.id;
+  //     const userCollectionRef = collection(db, "users");
+  //     const userDocRef = doc(userCollectionRef, userId);
+  //     logsCollectionRef.current = collection(userDocRef, "logs");
+
+  //     const fetchTransactions = async () => {
+  //       const incomeQuery = query(
+  //         logsCollectionRef.current,
+  //         where("type", "==", "income")
+  //       );
+  //       const expenseQuery = query(
+  //         logsCollectionRef.current,
+  //         where("type", "==", "expense")
+  //       );
+
+  //       let totalIncome = 0;
+  //       let totalExpense = 0;
+
+  //       const unsubscribeIncome = onSnapshot(incomeQuery, (incomeSnapshot) => {
+  //         totalIncome = 0;
+  //         incomeSnapshot.forEach((doc) => {
+  //           totalIncome += doc.data().amount;
+  //         });
+
+  //         const newBalance = totalIncome - totalExpense;
+  //         setBalance(newBalance);
+  //       });
+
+  //       const unsubscribeExpense = onSnapshot(
+  //         expenseQuery,
+  //         (expenseSnapshot) => {
+  //           totalExpense = 0;
+  //           expenseSnapshot.forEach((doc) => {
+  //             totalExpense += doc.data().amount;
+  //           });
+
+  //           const newBalance = totalIncome - totalExpense;
+  //           setBalance(newBalance);
+  //         }
+  //       );
+
+  //       return () => {
+  //         unsubscribeIncome();
+  //         unsubscribeExpense();
+  //       };
+  //     };
+
+  //     fetchTransactions();
+  //   }
+  // }, [user]);
+
   useEffect(() => {
     if (user) {
       const userId = user.id;
@@ -37,72 +92,49 @@ const Dashboard = () => {
       const userDocRef = doc(userCollectionRef, userId);
       logsCollectionRef.current = collection(userDocRef, "logs");
 
-      const fetchTransactions = async () => {
-        // try {
-        const incomeQuery = query(
-          logsCollectionRef.current,
-          where("type", "==", "income")
-        );
-        const expenseQuery = query(
-          logsCollectionRef.current,
-          where("type", "==", "expense")
-        );
-
-        //   const [incomeSnapshot, expenseSnapshot] = await Promise.all([
-        //     getDocs(incomeQuery),
-        //     getDocs(expenseQuery),
-        //   ]);
-
-        //   let totalIncome = 0;
-        //   let totalExpense = 0;
-
-        //   incomeSnapshot.forEach((doc) => {
-        //     totalIncome += doc.data().amount;
-        //   });
-
-        //   expenseSnapshot.forEach((doc) => {
-        //     totalExpense += doc.data().amount;
-        //   });
-
-        let totalIncome = 0;
-        let totalExpense = 0;
-
-        const unsubscribeIncome = onSnapshot(incomeQuery, (incomeSnapshot) => {
-          totalIncome = 0;
+      const unsubscribeIncome = onSnapshot(
+        query(logsCollectionRef.current, where("type", "==", "income")),
+        (incomeSnapshot) => {
+          let totalIncome = 0;
           incomeSnapshot.forEach((doc) => {
             totalIncome += doc.data().amount;
           });
 
-          const newBalance = totalIncome - totalExpense;
-          setBalance(newBalance);
-        });
+          setTotalIncome(totalIncome);
+        }
+      );
 
-        const unsubscribeExpense = onSnapshot(
-          expenseQuery,
-          (expenseSnapshot) => {
-            totalExpense = 0;
-            expenseSnapshot.forEach((doc) => {
-              totalExpense += doc.data().amount;
-            });
+      const unsubscribeExpense = onSnapshot(
+        query(logsCollectionRef.current, where("type", "==", "expense")),
+        (expenseSnapshot) => {
+          let totalExpense = 0;
+          expenseSnapshot.forEach((doc) => {
+            totalExpense += doc.data().amount;
+          });
 
-            const newBalance = totalIncome - totalExpense;
-            setBalance(newBalance);
-          }
-        );
+          setTotalExpense(totalExpense);
+        }
+      );
 
-        //   const newBalance = totalIncome - totalExpense;
-        //   setBalance(newBalance);
-        // } catch (error) {
-        //   console.error("Error fetching transactions:", error);
-        // }
+      const unsubscribeBalance = onSnapshot(
+        logsCollectionRef.current,
+        (logsSnapshot) => {
+          let totalBalance = 0;
 
-        return () => {
-          unsubscribeIncome();
-          unsubscribeExpense();
-        };
+          logsSnapshot.forEach((doc) => {
+            const { type, amount } = doc.data();
+            totalBalance += type === "income" ? amount : -amount;
+          });
+
+          setBalance(totalBalance);
+        }
+      );
+
+      return () => {
+        unsubscribeIncome();
+        unsubscribeExpense();
+        unsubscribeBalance();
       };
-
-      fetchTransactions();
     }
   }, [user]);
 
@@ -186,22 +218,37 @@ const Dashboard = () => {
         confirmExpense={confirmExpense}
       />
 
-      <div className="nav-side">
-        <h3 className="text-2xl">My Balance</h3>
-        <p className="text-7xl font-bold mb-5">{currencyFormatter(balance)}</p>
+      <div className="nav-side md:p-8">
         <div>
-          <button
-            className="dash-btn bg-green-500 cursor-pointer mr-5"
-            onClick={() => handleOpenIncomeModal()}
-          >
-            Add Income
-          </button>
-          <button
-            className="dash-btn bg-red-500  cursor-pointer"
-            onClick={() => handleOpenExpenseModal()}
-          >
-            Add Expense
-          </button>
+          <h3 className="text-2xl">My Balance</h3>
+          <p className="text-7xl font-bold mb-5">
+            {currencyFormatter(balance)}
+          </p>
+          <div>
+            <button
+              className="dash-btn bg-green-500 cursor-pointer mr-5"
+              onClick={() => handleOpenIncomeModal()}
+            >
+              Add Income
+            </button>
+            <button
+              className="dash-btn bg-red-500  cursor-pointer"
+              onClick={() => handleOpenExpenseModal()}
+            >
+              Add Expense
+            </button>
+          </div>
+        </div>
+
+        <div className="flex">
+          <div className="border-2 border-green-600 border-solid">
+            <h3>Total Income</h3>
+            {currencyFormatter(totalIncome)}
+          </div>
+          <div className="border-2 border-green-600 border-solid">
+            <h3>Total Expenses</h3>
+            <p>{currencyFormatter(totalExpense)}</p>
+          </div>
         </div>
       </div>
     </div>
