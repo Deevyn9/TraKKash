@@ -2,12 +2,21 @@
 import { useState, useEffect, use } from "react";
 import { currencyFormatter } from "../../../../lib/utils";
 import { db } from "../../../../firebase";
-import { collection, query, getDocs, where } from "firebase/firestore";
+import {
+  collection,
+  query,
+  getDocs,
+  where,
+  deleteDoc,
+  doc,
+} from "firebase/firestore";
 import { useUser } from "@clerk/nextjs";
+import { useLogsCollectionRef } from "../../../../lib/LogContext";
 
 const ExpensesPage = () => {
   const [expense, setExpense] = useState([]);
   const { user } = useUser();
+  const { logsCollectionRef, setLogsCollectionRef } = useLogsCollectionRef();
 
   useEffect(() => {
     const getExpenseData = async () => {
@@ -26,6 +35,11 @@ const ExpensesPage = () => {
             createdAt: new Date(doc.data().createdAt.toMillis()),
           }));
           setExpense(expenseData);
+
+          if (!logsCollectionRef.current) {
+            const logsRef = collection(db, "users", userId, "logs");
+            setLogsCollectionRef(logsRef);
+          }
         } catch (error) {
           console.error("Error fetching expense data", error);
         }
@@ -33,7 +47,26 @@ const ExpensesPage = () => {
     };
 
     getExpenseData();
-  }, [user]);
+  }, [user, logsCollectionRef, setLogsCollectionRef]);
+
+  const deleteLog = async (logId) => {
+    try {
+      if (!logsCollectionRef.current) {
+        console.error("logsCollectionRef is not initialized");
+        return;
+      }
+
+      const logRef = doc(logsCollectionRef.current, logId);
+      await deleteDoc(logRef);
+      console.log(`Log with ID ${logId} deleted successfully`);
+
+      setExpense((prevExpense) =>
+        prevExpense.filter((log) => log.id !== logId)
+      );
+    } catch (error) {
+      console.error("Error deleting logs:", error);
+    }
+  };
 
   return (
     <div className="nav-side__container w-full">
@@ -44,6 +77,7 @@ const ExpensesPage = () => {
               <div className="font-semi-bold">{i.description}</div>
               <small>{i.createdAt.toISOString()}</small>
               <p>{currencyFormatter(i.amount)}</p>
+              <button onClick={() => deleteLog(i.id)}>delete</button>
             </div>
           );
         })}
