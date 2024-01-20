@@ -20,7 +20,7 @@ const IncomePage = () => {
 
   useEffect(() => {
     const getIncomeData = async () => {
-      if (user) {
+      if (user && !logsCollectionRef) {
         const userId = user.id;
         const logsQuery = query(
           collection(db, "users", userId, "logs"),
@@ -36,7 +36,7 @@ const IncomePage = () => {
           }));
           setIncome(incomeData);
 
-          if (!logsCollectionRef.current) {
+          if (!logsCollectionRef) {
             const logsRef = collection(db, "users", userId, "logs");
             setLogsCollectionRef(logsRef);
           }
@@ -51,12 +51,12 @@ const IncomePage = () => {
 
   const deleteLog = async (logId) => {
     try {
-      if (!logsCollectionRef.current) {
+      if (!logsCollectionRef) {
         console.error("logsCollectionRef is not initialized");
         return;
       }
 
-      const logRef = doc(logsCollectionRef.current, logId);
+      const logRef = doc(logsCollectionRef, logId);
       await deleteDoc(logRef);
       console.log(`Log with ID ${logId} deleted successfully`);
 
