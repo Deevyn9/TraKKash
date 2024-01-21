@@ -13,7 +13,6 @@ import {
 } from "firebase/firestore";
 import { db } from "../../../firebase/index";
 import { currencyFormatter } from "../../../lib/utils";
-import { useLogsCollectionRef } from "../../../lib/LogContext";
 
 const Dashboard = () => {
   const [balance, setBalance] = useState(0);

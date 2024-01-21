@@ -11,7 +11,6 @@ import {
   doc,
 } from "firebase/firestore";
 import { useUser } from "@clerk/nextjs";
-// import { useLogsCollectionRef } from "../../../../lib/LogContext";
 
 const ExpensesPage = () => {
   const [expense, setExpense] = useState([]);
