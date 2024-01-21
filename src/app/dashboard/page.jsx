@@ -13,6 +13,7 @@ import {
 } from "firebase/firestore";
 import { db } from "../../../firebase/index";
 import { currencyFormatter } from "../../../lib/utils";
+import Link from "next/link";
 
 const Dashboard = () => {
   const [balance, setBalance] = useState(0);
@@ -190,10 +191,16 @@ const Dashboard = () => {
           <div className="border-2 border-green-600 border-solid">
             <h3>Total Income</h3>
             {currencyFormatter(totalIncome)}
+            <Link href="/dashboard/income">
+              <p>More details</p>
+            </Link>
           </div>
           <div className="border-2 border-green-600 border-solid">
             <h3>Total Expenses</h3>
             <p>{currencyFormatter(totalExpense)}</p>
+            <Link href="/dashboard/expenses">
+              <p>More details</p>
+            </Link>
           </div>
         </div>
       </div>
