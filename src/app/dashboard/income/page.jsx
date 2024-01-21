@@ -11,6 +11,7 @@ import {
   deleteDoc,
 } from "firebase/firestore";
 import { useUser } from "@clerk/nextjs";
+import Link from "next/link";
 
 const IncomePage = () => {
   const [income, setIncome] = useState([]);
@@ -66,6 +67,26 @@ const IncomePage = () => {
   return (
     <div className="nav-side__container w-full">
       <div className="overflow-scroll nav-side flex flex-col py-4">
+        <Link href="/dashboard">
+          <p className="flex items-center mb-5 md:hidden">
+            Back to Maindash
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              strokeWidth={1.5}
+              stroke="currentColor"
+              className="w-6 h-6 ml-2"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M6.75 15.75 3 12m0 0 3.75-3.75M3 12h18"
+              />
+            </svg>
+          </p>
+        </Link>
+
         {income.map((i) => {
           return (
             <div
