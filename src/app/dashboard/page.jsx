@@ -7,13 +7,13 @@ import {
   collection,
   doc,
   query,
-  getDocs,
   addDoc,
   where,
   onSnapshot,
 } from "firebase/firestore";
 import { db } from "../../../firebase/index";
 import { currencyFormatter } from "../../../lib/utils";
+import { useLogsCollectionRef } from "../../../lib/LogContext";
 
 const Dashboard = () => {
   const [balance, setBalance] = useState(0);
@@ -31,59 +31,6 @@ const Dashboard = () => {
 
   // Ref for logsCollection
   const logsCollectionRef = useRef(null);
-
-  // useEffect(() => {
-  //   if (user) {
-  //     const userId = user.id;
-  //     const userCollectionRef = collection(db, "users");
-  //     const userDocRef = doc(userCollectionRef, userId);
-  //     logsCollectionRef.current = collection(userDocRef, "logs");
-
-  //     const fetchTransactions = async () => {
-  //       const incomeQuery = query(
-  //         logsCollectionRef.current,
-  //         where("type", "==", "income")
-  //       );
-  //       const expenseQuery = query(
-  //         logsCollectionRef.current,
-  //         where("type", "==", "expense")
-  //       );
-
-  //       let totalIncome = 0;
-  //       let totalExpense = 0;
-
-  //       const unsubscribeIncome = onSnapshot(incomeQuery, (incomeSnapshot) => {
-  //         totalIncome = 0;
-  //         incomeSnapshot.forEach((doc) => {
-  //           totalIncome += doc.data().amount;
-  //         });
-
-  //         const newBalance = totalIncome - totalExpense;
-  //         setBalance(newBalance);
-  //       });
-
-  //       const unsubscribeExpense = onSnapshot(
-  //         expenseQuery,
-  //         (expenseSnapshot) => {
-  //           totalExpense = 0;
-  //           expenseSnapshot.forEach((doc) => {
-  //             totalExpense += doc.data().amount;
-  //           });
-
-  //           const newBalance = totalIncome - totalExpense;
-  //           setBalance(newBalance);
-  //         }
-  //       );
-
-  //       return () => {
-  //         unsubscribeIncome();
-  //         unsubscribeExpense();
-  //       };
-  //     };
-
-  //     fetchTransactions();
-  //   }
-  // }, [user]);
 
   useEffect(() => {
     if (user) {
