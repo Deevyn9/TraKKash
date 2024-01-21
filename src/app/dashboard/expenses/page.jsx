@@ -11,12 +11,12 @@ import {
   doc,
 } from "firebase/firestore";
 import { useUser } from "@clerk/nextjs";
-import { useLogsCollectionRef } from "../../../../lib/LogContext";
+// import { useLogsCollectionRef } from "../../../../lib/LogContext";
 
 const ExpensesPage = () => {
   const [expense, setExpense] = useState([]);
   const { user } = useUser();
-  const { logsCollectionRef, setLogsCollectionRef } = useLogsCollectionRef();
+  const [logsCollectionRef, setLogsCollectionRef] = useState(null);
 
   useEffect(() => {
     const getExpenseData = async () => {
@@ -55,11 +55,9 @@ const ExpensesPage = () => {
         console.error("logsCollectionRef is not initialized");
         return;
       }
-
       const logRef = doc(logsCollectionRef, logId);
       await deleteDoc(logRef);
       console.log(`Log with ID ${logId} deleted successfully`);
-
       setExpense((prevExpense) =>
         prevExpense.filter((log) => log.id !== logId)
       );

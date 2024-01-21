@@ -11,16 +11,15 @@ import {
   deleteDoc,
 } from "firebase/firestore";
 import { useUser } from "@clerk/nextjs";
-import { useLogsCollectionRef } from "../../../../lib/LogContext";
 
 const IncomePage = () => {
   const [income, setIncome] = useState([]);
   const { user } = useUser();
-  const { logsCollectionRef, setLogsCollectionRef } = useLogsCollectionRef();
+  const [logsCollectionRef, setLogsCollectionRef] = useState();
 
   useEffect(() => {
     const getIncomeData = async () => {
-      if (user && !logsCollectionRef) {
+      if (user) {
         const userId = user.id;
         const logsQuery = query(
           collection(db, "users", userId, "logs"),
@@ -47,7 +46,7 @@ const IncomePage = () => {
     };
 
     getIncomeData();
-  }, [user, logsCollectionRef, setLogsCollectionRef]);
+  }, [user]);
 
   const deleteLog = async (logId) => {
     try {
@@ -55,11 +54,9 @@ const IncomePage = () => {
         console.error("logsCollectionRef is not initialized");
         return;
       }
-
       const logRef = doc(logsCollectionRef, logId);
       await deleteDoc(logRef);
       console.log(`Log with ID ${logId} deleted successfully`);
-
       setIncome((prevIncome) => prevIncome.filter((log) => log.id !== logId));
     } catch (error) {
       console.error("Error deleting log:", error);
