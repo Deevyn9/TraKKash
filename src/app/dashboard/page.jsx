@@ -147,7 +147,7 @@ const Dashboard = () => {
   }
 
   return (
-    <div className="overflow-scroll nav-side__container items-start sm:w-full w-screen">
+    <div className="overflow-scroll nav-side__container items-start w-screen md:w-4/5 lg:w-5/6">
       <AddIncomeModal
         isOpen={isAddIncomeModalOpen}
         closeIncomeModal={handleCloseIncomeModal}
@@ -165,12 +165,15 @@ const Dashboard = () => {
         confirmExpense={confirmExpense}
       />
 
-      <div className="nav-side md:p-8">
-        <div>
-          <h3 className="text-2xl">My Balance</h3>
-          <p className="text-7xl font-bold mb-5">
-            {currencyFormatter(balance)}
-          </p>
+      <div className="nav-side md:p-8  border-dashed border-2 border-yellow-500 w-full">
+        <div className="w-full border-dashed border-2 border-red-500">
+          <h3 className="md:text-2xl text-xl">My Balance</h3>
+          <div className="overflow-hidden w-full">
+            <p className="md:text-7xl text-4xl font-bold mb-5 overflow-x-scroll">
+              {currencyFormatter(balance)}
+            </p>
+          </div>
+
           <div>
             <button
               className="dash-btn bg-green-500 cursor-pointer mr-5"
