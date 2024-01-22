@@ -20,7 +20,7 @@ export default function Nav() {
         aria-label="Global"
         className="nav-side flex justify-between items-center"
       >
-        <div className="md:hidden z-50" onClick={handleOpenNav}>
+        <div className="md:hidden z-40" onClick={handleOpenNav}>
           {openNav ? (
             <svg
               xmlns="http://www.w3.org/2000/svg"
