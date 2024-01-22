@@ -65,7 +65,7 @@ const IncomePage = () => {
   };
 
   return (
-    <div className="nav-side__container w-full">
+    <div className="nav-side__container md:w-4/5 w-screen lg:w-5/6">
       <div className="overflow-scroll nav-side flex flex-col py-4">
         <Link href="/dashboard">
           <p className="flex items-center mb-5 md:hidden">
@@ -91,14 +91,22 @@ const IncomePage = () => {
           return (
             <div
               key={i.id}
-              className="flex justify-between items-center border-2 border-solid border-purple-600 h-20 px-4 rounded-lg"
+              className="flex justify-between items-center border-2 border-solid border-purple-600 h-24 p-4 rounded-lg mb-5  "
             >
-              <div>
-                <div className="font-semi-bold capitalize">{i.description}</div>
-                <small>{i.createdAt.toISOString()}</small>
+              <div className="h-full flex flex-col justify-between w-2/4 overflow-hidden pr-2">
+                <div className="font-semi-bold capitalize sm:text-xl overflow-x-scroll">
+                  {i.description}
+                </div>
+                <small>{i.createdAt.toLocaleDateString()}</small>
               </div>
-              <div className="flex">
-                <p className="mr-3">{currencyFormatter(i.amount)}</p>
+
+              <div className="flex h-full flex-col sm:flex-row sm:items-center items-end justify-between sm:justify-en w-2/4 overflow-hidden pl-2">
+                <div className="overflow-x-scroll w-full text-right ">
+                  <p className="sm:mr-3 sm:text-lg">
+                    {currencyFormatter(i.amount)}
+                  </p>
+                </div>
+
                 <button onClick={() => deleteLog(i.id)}>
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
