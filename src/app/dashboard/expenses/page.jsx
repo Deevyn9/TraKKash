@@ -67,7 +67,7 @@ const ExpensesPage = () => {
   };
 
   return (
-    <div className="nav-side__container w-full">
+    <div className="nav-side__container md:w-4/5 w-screen lg:w-5/6x ">
       <div className="overflow-scroll nav-side flex flex-col py-4">
         <Link href="/dashboard">
           <p className="flex items-center mb-5 md:hidden">
@@ -93,14 +93,21 @@ const ExpensesPage = () => {
           return (
             <div
               key={i.id}
-              className="flex justify-between items-center border-2 border-solid border-purple-600 h-20 px-4 rounded-lg"
+              className="flex justify-between items-center border-2 border-solid border-purple-600 h-24 p-4 rounded-lg mb-5"
             >
-              <div>
-                <div className="font-semi-bold capitalize">{i.description}</div>
-                <small>{i.createdAt.toISOString()}</small>
+              <div className="h-full flex flex-col justify-between">
+                <div className="font-semi-bold capitalize sm:text-xl">
+                  {i.description}
+                </div>
+                <small>{i.createdAt.toLocaleDateString()}</small>
               </div>
-              <div className="flex">
-                <p className="mr-3">{currencyFormatter(i.amount)}</p>
+              <div className="flex h-full flex-col sm:flex-row sm:items-center items-end justify-between">
+                <div className="sm:w-max overflow-hidden">
+                  <p className="sm:mr-3 sm:text-lg  overflow-x-scroll">
+                    {currencyFormatter(i.amount)}
+                  </p>
+                </div>
+
                 <button onClick={() => deleteLog(i.id)}>
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
