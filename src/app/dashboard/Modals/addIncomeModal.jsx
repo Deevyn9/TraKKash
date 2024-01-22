@@ -17,11 +17,11 @@ const AddIncomeModal = ({
       } modal-bg justify-center items-center  h-screen w-screen absolute top-0 left-0 z-50`}
     >
       {confirmIncome && (
-        <div className="absolute right-5 top-5 bg-green-500">
+        <div className="absolute right-5 top-5 bg-green-600 p-4 rounded-lg text-base">
           <p>Income Added Successfully</p>
         </div>
       )}
-      <div className="p-3 rounded-3xl bg-blue-900 w-96 h-max">
+      <div className="p-3 rounded-3xl bg-black w-11/12 sm:w-96 h-max border-2 border-solid border-purple-500">
         <div
           className="flex items-center justify-center cursor-pointer font-2 rounded-full bg-white w-8 h-8 hover:scale-105 self-end transition-all"
           onClick={closeIncomeModal}
@@ -61,7 +61,7 @@ const AddIncomeModal = ({
 
           <button
             type="submit"
-            className="mt-7 bg-green-500 rounded-md text-white px-3 py-2 self-end"
+            className="mt-7 bg-green-600 rounded-md text-white px-3 py-2 self-end"
           >
             Add Income
           </button>
