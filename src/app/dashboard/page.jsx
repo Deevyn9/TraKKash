@@ -143,7 +143,11 @@ const Dashboard = () => {
   };
 
   if (!user) {
-    return <div>Loading...</div>;
+    return (
+      <div className="absolute bg-black top-0 left-0 h-screen w-screen grid place-items-center text-3xl z-50">
+        Loading...
+      </div>
+    );
   }
 
   return (
@@ -165,8 +169,8 @@ const Dashboard = () => {
         confirmExpense={confirmExpense}
       />
 
-      <div className="nav-side md:p-8  border-dashed border-2 border-yellow-500 w-full">
-        <div className="w-full border-dashed border-2 border-red-500">
+      <div className="nav-side md:p-8">
+        <div className="w-full">
           <h3 className="md:text-2xl text-xl">My Balance</h3>
           <div className="overflow-hidden w-full">
             <p className="md:text-7xl text-4xl font-bold mb-5 overflow-x-scroll">
@@ -176,13 +180,13 @@ const Dashboard = () => {
 
           <div>
             <button
-              className="dash-btn bg-green-500 cursor-pointer mr-5"
+              className="dash-btn bg-green-600 cursor-pointer mr-5 w-"
               onClick={() => handleOpenIncomeModal()}
             >
               Add Income
             </button>
             <button
-              className="dash-btn bg-red-500  cursor-pointer"
+              className="dash-btn bg-red-600  cursor-pointer"
               onClick={() => handleOpenExpenseModal()}
             >
               Add Expense
