@@ -6,6 +6,12 @@
     .dash-btn {
         @apply w-28 h-10 text-white rounded-lg outline-none cursor-pointer mr-5;
     }
+
+    @media (max-width: 295px) {
+        .dash-btn {
+            @apply w-24 h-10 text-sm mb-3;
+        }
+    }
 }
 
 @layer components {
