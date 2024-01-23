@@ -194,20 +194,34 @@ const Dashboard = () => {
           </div>
         </div>
 
-        <div className="flex">
-          <div className="border-2 border-green-600 border-solid">
+        <div className="totals__container flex flex-wrap">
+          <div className="totals">
             <h3>Total Income</h3>
-            {currencyFormatter(totalIncome)}
-            <Link href="/dashboard/income">
-              <p>More details</p>
-            </Link>
+            <div>
+              <p>{currencyFormatter(totalIncome)}</p>
+            </div>
+
+            {totalIncome > 0 ? (
+              <Link href="/dashboard/income">
+                <p>More details</p>
+              </Link>
+            ) : (
+              <div></div>
+            )}
           </div>
-          <div className="border-2 border-green-600 border-solid">
+          <div className="totals">
             <h3>Total Expenses</h3>
-            <p>{currencyFormatter(totalExpense)}</p>
-            <Link href="/dashboard/expenses">
-              <p>More details</p>
-            </Link>
+            <div>
+              <p>{currencyFormatter(totalExpense)}</p>
+            </div>
+
+            {totalExpense > 0 ? (
+              <Link href="/dashboard/expenses">
+                <p>More details</p>
+              </Link>
+            ) : (
+              <div></div>
+            )}
           </div>
         </div>
       </div>
