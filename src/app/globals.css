@@ -38,6 +38,47 @@
     .sidebar-links__main {
         @apply h-20 flex mt-5 items-center text-xl;
     }
+
+    .totals__container {
+        margin-top: 25px;
+        width: 100%;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .totals {
+        width: 90%;
+        height: 160px;
+        margin-bottom: 20px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding: 10px;
+        border-width: 4px;
+    }
+
+    .totals:first-of-type {
+        background-color: rgba(3, 218, 3, 0.203);
+        border-color: rgb(3, 218, 3);
+    }
+
+    .totals:nth-of-type(2) {
+        background-color: rgba(218, 3, 3, 0.203);
+        border-color: rgb(218, 3, 3);
+    }
+
+    .totals h3 {
+        font-size: 14px;
+    }
+
+    .totals > div {
+        font-size: 30px;
+        overflow: hidden;
+    }
+
+    .totals > div p {
+        overflow-x: scroll;
+    }
 }
 
 .modal-bg {
