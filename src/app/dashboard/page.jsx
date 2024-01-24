@@ -151,7 +151,7 @@ const Dashboard = () => {
   }
 
   return (
-    <div className="overflow-scroll nav-side__container items-start w-screen md:w-4/5 lg:w-5/6">
+    <div className="nav-side__container items-start w-screen md:w-4/5 lg:w-5/6">
       <AddIncomeModal
         isOpen={isAddIncomeModalOpen}
         closeIncomeModal={handleCloseIncomeModal}
@@ -172,8 +172,8 @@ const Dashboard = () => {
       <div className="nav-side md:p-8">
         <div className="w-full">
           <h3 className="md:text-2xl text-xl">My Balance</h3>
-          <div className="overflow-hidden w-full">
-            <p className="md:text-7xl text-4xl font-bold mb-5 overflow-x-scroll">
+          <div className="w-full">
+            <p className="md:text-7xl text-4xl font-bold mb-5">
               {currencyFormatter(balance)}
             </p>
           </div>

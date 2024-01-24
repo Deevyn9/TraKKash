@@ -76,9 +76,13 @@
         overflow: hidden;
     }
 
-    .totals > div p {
-        overflow-x: scroll;
+
+    @media (max-width: 350px) {
+        .totals > div p {
+            overflow-x: scroll;
+        }    
     }
+    
 }
 
 .modal-bg {
