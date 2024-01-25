@@ -17,7 +17,7 @@ const AddIncomeModal = ({
       } modal-bg justify-center items-center  h-screen w-screen absolute top-0 left-0 z-50`}
     >
       {confirmIncome && (
-        <div className="absolute right-5 top-5 bg-green-600 p-4 rounded-lg text-base">
+        <div className="absolute right-5 text-white top-5 bg-green-600 p-4 rounded-lg text-base">
           <p>Income Added Successfully</p>
         </div>
       )}
@@ -54,6 +54,7 @@ const AddIncomeModal = ({
               name="description"
               placeholder="describe payment"
               required
+              maxLength={10}
               ref={incomeDescriptionRef}
               className="h-10 rounded-md p-3 outline-none text-black"
             />

@@ -17,7 +17,7 @@ const AddExpenseModal = ({
       } justify-center items-center modal-bg h-screen w-screen absolute top-0 left-0 z-50`}
     >
       {confirmExpense && (
-        <div className="absolute right-5 top-5 bg-red-600 p-4 text-base rounded-lg">
+        <div className="absolute right-5 top-5 text-white bg-red-600 p-4 text-base rounded-lg">
           <p>Sad to see your money go!</p>
         </div>
       )}
@@ -53,8 +53,9 @@ const AddExpenseModal = ({
               type="text"
               name="description"
               placeholder="describe payment"
-              ref={expenseDescriptionRef}
               required
+              maxLength={10}
+              ref={expenseDescriptionRef}
               className="h-10 rounded-md p-3 outline-none text-black"
             />
           </div>
