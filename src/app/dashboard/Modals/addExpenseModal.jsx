@@ -21,7 +21,7 @@ const AddExpenseModal = ({
           <p>Sad to see your money go!</p>
         </div>
       )}
-      <div className="p-3 rounded-3xl bg-black w-11/12 sm:w-96 h-max border-2 border-solid border-purple-500">
+      <div className="p-3 rounded-3xl bg-white w-11/12 sm:w-96 h-max border-2 border-solid border-black">
         <div
           className="flex items-center justify-center cursor-pointer font-2 rounded-full bg-white w-8 h-8 hover:scale-105 self-end transition-all"
           onClick={closeExpenseModal}
@@ -30,7 +30,7 @@ const AddExpenseModal = ({
         </div>
         <form className="my-7" onSubmit={addExpenseHandler}>
           <div className="flex flex-col mb-5">
-            <label htmlFor="Expense Amount" className="text-white mb-2">
+            <label htmlFor="Expense Amount" className="mb-2 text-black">
               Expense Amount
             </label>
             <input
@@ -41,12 +41,12 @@ const AddExpenseModal = ({
               placeholder="$0.00"
               ref={expenseAmountRef}
               required
-              className="h-10 rounded-md p-3 outline-none text-black"
+              className="h-10 rounded-md p-3 outline-none text-black border-solid border-black border-2"
             />
           </div>
 
           <div className="flex flex-col">
-            <label htmlFor="Description" className="text-white mb-2">
+            <label htmlFor="Description" className="text-black mb-2">
               Description
             </label>
             <input
@@ -56,7 +56,7 @@ const AddExpenseModal = ({
               required
               maxLength={10}
               ref={expenseDescriptionRef}
-              className="h-10 rounded-md p-3 outline-none text-black"
+              className="h-10 rounded-md p-3 outline-none text-black border-solid border-black border-2"
             />
           </div>
 
