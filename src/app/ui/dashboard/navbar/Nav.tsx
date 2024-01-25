@@ -15,10 +15,10 @@ export default function Nav() {
   }
 
   return (
-    <header className="nav-side__container h-20 lg:h-24 w-screen">
+    <header className="nav-side__container border-b-2 border-black border-solid h-16 md:h-24 w-screen">
       <nav
         aria-label="Global"
-        className="nav-side flex justify-between items-center"
+        className="nav-side  flex justify-between items-center px-4"
       >
         <div className="md:hidden z-40" onClick={handleOpenNav}>
           {openNav ? (
