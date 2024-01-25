@@ -4,7 +4,7 @@
 
 @layer utilities {
     .dash-btn {
-        @apply w-28 h-10 text-white rounded-lg outline-none cursor-pointer mr-5;
+        @apply w-28 h-10 md:w-32 md:h-12 text-white rounded-lg outline-none cursor-pointer mr-5;
     }
 
     @media (max-width: 295px) {
@@ -16,11 +16,11 @@
 
 @layer components {
     .nav-side__container {
-        @apply flex items-center justify-center p-2 ;
+        @apply flex items-center justify-center;
     }
     
     .nav-side {
-        @apply  w-full h-full border-purple-500 border-2 border-solid rounded-xl px-2;
+        @apply  w-full h-full;
     }
 
     .burger-links {
@@ -67,10 +67,6 @@
         border-color: rgb(218, 3, 3);
     }
 
-    .totals h3 {
-        font-size: 14px;
-    }
-
     .totals > div {
         font-size: 30px;
         overflow: hidden;
@@ -81,6 +77,10 @@
         .totals > div p {
             overflow-x: scroll;
         }    
+
+        .totals h3 {
+            font-size: 14px;
+        }
     }
     
 }
@@ -103,6 +103,12 @@
 }
 
 .dashboard {
-    height: calc(100vh - 100px);
+    height: calc(100vh - 96px);
     width: 100vw;
+}
+
+@media (max-width: 768px) {
+    .dashboard {
+        height: calc(100vh - 64px);
+    }
 }

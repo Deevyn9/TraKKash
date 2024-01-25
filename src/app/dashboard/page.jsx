@@ -169,24 +169,24 @@ const Dashboard = () => {
         confirmExpense={confirmExpense}
       />
 
-      <div className="nav-side md:p-8">
+      <div className="w-full h-full md:px-6 md:py-5">
         <div className="w-full">
-          <h3 className="md:text-2xl text-xl">My Balance</h3>
+          <h3 className="md:text-2xl text-xl mb-2">My Balance</h3>
           <div className="w-full">
-            <p className="md:text-7xl text-4xl font-bold mb-5">
+            <p className="md:text-8xl text-4xl font-bold mb-5">
               {currencyFormatter(balance)}
             </p>
           </div>
 
-          <div>
+          <div className="md:mb-10">
             <button
-              className="dash-btn bg-green-600 cursor-pointer mr-5 w-"
+              className="dash-btn bg-green-600 cursor-pointer mr-5"
               onClick={() => handleOpenIncomeModal()}
             >
               Add Income
             </button>
             <button
-              className="dash-btn bg-red-600  cursor-pointer"
+              className="dash-btn bg-red-600 cursor-pointer"
               onClick={() => handleOpenExpenseModal()}
             >
               Add Expense
@@ -194,30 +194,30 @@ const Dashboard = () => {
           </div>
         </div>
 
-        <div className="totals__container flex flex-wrap">
-          <div className="totals">
-            <h3>Total Income</h3>
-            <div>
-              <p>{currencyFormatter(totalIncome)}</p>
+        <div className="totals__container flex flex-wrap md:flex-row md:flex-nowrap md:gap-10">
+          <div className="totals md:h-80">
+            <h3 className="md:text-2xl font-semibold">Total Income</h3>
+            <div className="md:mb-10">
+              <p className="md:text-6xl">{currencyFormatter(totalIncome)}</p>
             </div>
 
             {totalIncome > 0 ? (
               <Link href="/dashboard/income">
-                <p>More details</p>
+                <p className="text-lg">More details</p>
               </Link>
             ) : (
               <div></div>
             )}
           </div>
-          <div className="totals">
-            <h3>Total Expenses</h3>
-            <div>
-              <p>{currencyFormatter(totalExpense)}</p>
+          <div className="totals md:h-80 md:w">
+            <h3 className="md:text-2xl font-semibold">Total Expenses</h3>
+            <div className="md:mb-10">
+              <p className="md:text-6xl">{currencyFormatter(totalExpense)}</p>
             </div>
 
             {totalExpense > 0 ? (
               <Link href="/dashboard/expenses">
-                <p>More details</p>
+                <p className="text-lg">More details</p>
               </Link>
             ) : (
               <div></div>
