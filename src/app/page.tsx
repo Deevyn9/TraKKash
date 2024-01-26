@@ -20,7 +20,6 @@ export default function Home() {
         </h1>
         <p className="text-lg sm:text-2xl text-center">
           Know where your money goes{" "}
-          {/*<span className="text-purple-500">!</span> */}
         </p>
       </div>
 
