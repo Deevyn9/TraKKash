@@ -65,7 +65,7 @@ const IncomePage = () => {
   };
 
   return (
-    <div className="nav-side__container md:w-4/5 w-screen lg:w-5/6">
+    <div className="nav-side__container md:w-4/5 w-screen lg:w-5/6 overflow-y-scroll pb-5">
       <div className="nav-side flex flex-col p-4">
         <Link href="/dashboard">
           <p className="flex items-center mb-5 md:hidden">

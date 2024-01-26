@@ -151,7 +151,7 @@ const Dashboard = () => {
   }
 
   return (
-    <div className="nav-side__container items-start w-screen md:w-4/5 lg:w-5/6">
+    <div className="nav-side__container items-start w-screen md:w-4/5 overflow-y-scroll lg:w-5/6">
       <AddIncomeModal
         isOpen={isAddIncomeModalOpen}
         closeIncomeModal={handleCloseIncomeModal}
@@ -169,7 +169,7 @@ const Dashboard = () => {
         confirmExpense={confirmExpense}
       />
 
-      <div className="w-full h-full md:px-6 md:py-5">
+      <div className="w-full h-full p-5 md:px-6 md:py-5">
         <div className="w-full">
           <h3 className="md:text-2xl text-xl mb-2">My Balance</h3>
           <div className="w-full">
@@ -194,7 +194,7 @@ const Dashboard = () => {
           </div>
         </div>
 
-        <div className="totals__container flex flex-wrap md:flex-row md:flex-nowrap md:gap-10">
+        <div className="totals__container flex flex-wrap lg:flex-row lg:flex-nowrap lg:gap-10">
           <div className="totals md:h-80">
             <h3 className="md:text-2xl font-semibold">Total Income</h3>
             <div className="md:mb-10">
