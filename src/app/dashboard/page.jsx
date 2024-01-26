@@ -144,7 +144,7 @@ const Dashboard = () => {
 
   if (!user) {
     return (
-      <div className="absolute bg-black top-0 left-0 h-screen w-screen grid place-items-center text-3xl z-50">
+      <div className="absolute bg-black text-white top-0 left-0 h-screen w-screen grid place-items-center text-3xl z-50">
         Loading...
       </div>
     );
