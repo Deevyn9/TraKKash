@@ -33,6 +33,19 @@ const Dashboard = () => {
   const logsCollectionRef = useRef(null);
 
   useEffect(() => {
+    const loadDataFromLocalStorage = () => {
+      const balanceData = localStorage.getItem("balance");
+      if (balanceData) setBalance(JSON.parse(balanceData));
+
+      const totalIncomeData = localStorage.getItem("totalIncome");
+      if (totalIncomeData) setTotalIncome(JSON.parse(totalIncomeData));
+
+      const totalExpenseData = localStorage.getItem("totalExpense");
+      if (totalExpenseData) setTotalExpense(JSON.parse(totalExpenseData));
+    };
+
+    loadDataFromLocalStorage();
+
     if (user) {
       const userId = user.id;
       const userCollectionRef = collection(db, "users");
@@ -48,6 +61,7 @@ const Dashboard = () => {
           });
 
           setTotalIncome(totalIncome);
+          localStorage.setItem("totalIncome", JSON.stringify(totalIncome));
         }
       );
 
@@ -60,6 +74,7 @@ const Dashboard = () => {
           });
 
           setTotalExpense(totalExpense);
+          localStorage.setItem("totalExpense", JSON.stringify(totalExpense));
         }
       );
 
@@ -74,6 +89,7 @@ const Dashboard = () => {
           });
 
           setBalance(totalBalance);
+          localStorage.setItem("balance", JSON.stringify(totalBalance));
         }
       );
 
