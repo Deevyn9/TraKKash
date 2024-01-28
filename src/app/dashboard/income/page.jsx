@@ -32,7 +32,7 @@ const IncomePage = () => {
           const incomeData = snapshot.docs.map((doc) => ({
             id: doc.id,
             ...doc.data(),
-            createdAt: new Date(doc.data().createdAt.toMillis()),
+            createdAt: new Date(doc.data().createdAt.toMillis()).toISOString(),
           }));
           setIncome(incomeData);
 
@@ -40,6 +40,8 @@ const IncomePage = () => {
             const logsRef = collection(db, "users", userId, "logs");
             setLogsCollectionRef(logsRef);
           }
+
+          localStorage.setItem("income", JSON.stringify(incomeData));
         } catch (error) {
           console.error("Error fetching income data", error);
         }
@@ -47,6 +49,13 @@ const IncomePage = () => {
     };
 
     getIncomeData();
+
+    const loadDataFromLocalStorage = () => {
+      const storedIncome = localStorage.getItem("income");
+      if (storedIncome) setIncome(JSON.parse(storedIncome));
+    };
+
+    loadDataFromLocalStorage();
   }, [user, logsCollectionRef, setLogsCollectionRef]);
 
   const deleteLog = async (logId) => {
@@ -59,6 +68,9 @@ const IncomePage = () => {
       await deleteDoc(logRef);
       console.log(`Log with ID ${logId} deleted successfully`);
       setIncome((prevIncome) => prevIncome.filter((log) => log.id !== logId));
+
+      const updatedIncome = income.filter((log) => log.id !== logId);
+      localStorage.setIncome("income", JSON.stringify(updatedIncome));
     } catch (error) {
       console.error("Error deleting log:", error);
     }
@@ -98,7 +110,7 @@ const IncomePage = () => {
                   <div className="font-semi-bold capitalize sm:text-xl ">
                     {i.description}
                   </div>
-                  <small>{i.createdAt.toLocaleDateString()}</small>
+                  {/* <small>{i.createdAt.toLocaleDateString()}</small> */}
                 </div>
 
                 <div className="flex h-full flex-col sm:flex-row sm:items-center items-end justify-between sm:justify-en w-2/4 pl-2">
