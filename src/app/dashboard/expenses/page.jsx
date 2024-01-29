@@ -7,20 +7,20 @@ import {
   query,
   getDocs,
   where,
-  deleteDoc,
   doc,
+  deleteDoc,
 } from "firebase/firestore";
 import { useUser } from "@clerk/nextjs";
 import Link from "next/link";
 
-const ExpensesPage = () => {
+const IncomePage = () => {
   const [expense, setExpense] = useState([]);
   const { user } = useUser();
-  const [logsCollectionRef, setLogsCollectionRef] = useState(null);
+  const [logsCollectionRef, setLogsCollectionRef] = useState();
 
   useEffect(() => {
     const getExpenseData = async () => {
-      if (user && !logsCollectionRef) {
+      if (user) {
         const userId = user.id;
         const logsQuery = query(
           collection(db, "users", userId, "logs"),
@@ -29,17 +29,26 @@ const ExpensesPage = () => {
 
         try {
           const snapshot = await getDocs(logsQuery);
-          const expenseData = snapshot.docs.map((doc) => ({
-            id: doc.id,
-            ...doc.data(),
-            createdAt: new Date(doc.data().createdAt.toMillis()),
-          }));
+          const expenseData = snapshot.docs.map((doc) => {
+            const data = doc.data();
+            const createdAt =
+              data.createdAt && data.createdAt.toMillis()
+                ? new Date(data.createdAt.toMillis())
+                : null;
+            return {
+              id: doc.id,
+              ...data,
+              createdAt: createdAt,
+            };
+          });
           setExpense(expenseData);
 
           if (!logsCollectionRef) {
             const logsRef = collection(db, "users", userId, "logs");
             setLogsCollectionRef(logsRef);
           }
+
+          localStorage.setItem("expense", JSON.stringify(expenseData));
         } catch (error) {
           console.error("Error fetching expense data", error);
         }
@@ -47,6 +56,13 @@ const ExpensesPage = () => {
     };
 
     getExpenseData();
+
+    const loadDataFromLocalStorage = () => {
+      const storedExpense = localStorage.getItem("expense");
+      if (storedExpense) setExpense(JSON.parse(storedExpense));
+    };
+
+    loadDataFromLocalStorage();
   }, [user, logsCollectionRef, setLogsCollectionRef]);
 
   const deleteLog = async (logId) => {
@@ -61,13 +77,16 @@ const ExpensesPage = () => {
       setExpense((prevExpense) =>
         prevExpense.filter((log) => log.id !== logId)
       );
+
+      const updatedExpense = expense.filter((log) => log.id !== logId);
+      localStorage.setExpense("expense", JSON.stringify(updatedExpense));
     } catch (error) {
-      console.error("Error deleting logs:", error);
+      console.error("Error deleting log:", error);
     }
   };
 
   return (
-    <div className="nav-side__container md:w-4/5 w-screen lg:w-5/6 overflow-y-scroll">
+    <div className="nav-side__container md:w-4/5 w-screen lg:w-5/6 overflow-y-scroll pb-5">
       <div className="nav-side flex flex-col p-4">
         <Link href="/dashboard">
           <p className="flex items-center mb-5 md:hidden">
@@ -78,7 +97,7 @@ const ExpensesPage = () => {
               viewBox="0 0 24 24"
               strokeWidth={1.5}
               stroke="currentColor"
-              className="w-6 h-6 ml-1"
+              className="w-6 h-6 ml-2"
             >
               <path
                 strokeLinecap="round"
@@ -94,17 +113,22 @@ const ExpensesPage = () => {
             return (
               <div
                 key={i.id}
-                className="flex justify-between items-center border-2 border-solid border-purple-600 h-24 p-4 rounded-lg mb-5 md:hover:bg-purple-300 transition-all"
+                className="flex justify-between items-center border-2 border-solid border-purple-600 h-24 p-4 rounded-lg mb-5  md:hover:bg-purple-300 transition-all"
               >
-                <div className="h-full flex flex-col justify-between">
-                  <div className="font-semi-bold capitalize sm:text-xl">
+                <div className="h-full flex flex-col justify-between pr-2">
+                  <div className="font-semi-bold capitalize sm:text-xl ">
                     {i.description}
                   </div>
-                  <small>{i.createdAt.toLocaleDateString()}</small>
+                  <small>
+                    {i.createdAt instanceof Date
+                      ? i.createdAt.toLocaleDateString()
+                      : "Unknown Date"}
+                  </small>
                 </div>
-                <div className="flex h-full flex-col sm:flex-row sm:items-center items-end justify-between">
-                  <div className="sm:w-max">
-                    <p className="sm:mr-3 sm:text-lg text-red-500">
+
+                <div className="flex h-full flex-col sm:flex-row sm:items-center items-end justify-between sm:justify-en w-2/4 pl-2">
+                  <div className="w-full text-right ">
+                    <p className="sm:mr-3 text-red-600 sm:text-lg">
                       {currencyFormatter(i.amount)}
                     </p>
                   </div>
@@ -141,4 +165,4 @@ const ExpensesPage = () => {
   );
 };
 
-export default ExpensesPage;
+export default IncomePage;
