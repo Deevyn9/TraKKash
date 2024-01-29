@@ -122,7 +122,7 @@ const IncomePage = () => {
                   <small>
                     {i.createdAt instanceof Date
                       ? i.createdAt.toLocaleDateString()
-                      : "Unknown Date"}
+                      : "Loading..."}
                   </small>
                 </div>
 
