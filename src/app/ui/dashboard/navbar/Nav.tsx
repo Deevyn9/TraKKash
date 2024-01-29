@@ -54,13 +54,15 @@ export default function Nav() {
           )}
         </div>
         <div className="flex lg:flex-1">
-          <a href="/" className="-m-1.5 p-1.5">
-            tra<span className="text-xl text-purple-500">KK</span>ash
+          <a href="/" className="-m-1.5 p-1.5 font-semibold text-xl">
+            tra<span className="text-purple-500">kk</span>ash
           </a>
         </div>
         {isLoaded && user && (
           <>
-            <p className="hidden mr-3 lg:flex">Hi, {username}</p>
+            <p className="hidden mr-3 lg:flex font-semibold text-xl">
+              Hi, {username}
+            </p>
             <UserButton afterSignOutUrl="/" />
           </>
         )}
@@ -78,7 +80,7 @@ export default function Nav() {
                 onClick={handleOpenNav}
                 className="burger-links"
               >
-                <li className="burger-links__main">main dash</li>
+                <li className="burger-links__main">main dashboard</li>
               </Link>
               <Link
                 href="/dashboard/income"

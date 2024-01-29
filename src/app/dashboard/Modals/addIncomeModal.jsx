@@ -1,4 +1,4 @@
-import { React, useRef } from "react";
+import { React } from "react";
 import CloseIcon from "../../../../public/assets/close.png";
 import { Image } from "next/dist/client/image-component";
 
