@@ -29,11 +29,18 @@ const IncomePage = () => {
 
         try {
           const snapshot = await getDocs(logsQuery);
-          const incomeData = snapshot.docs.map((doc) => ({
-            id: doc.id,
-            ...doc.data(),
-            createdAt: new Date(doc.data().createdAt.toMillis()).toISOString(),
-          }));
+          const incomeData = snapshot.docs.map((doc) => {
+            const data = doc.data();
+            const createdAt =
+              data.createdAt && data.createdAt.toMillis()
+                ? new Date(data.createdAt.toMillis())
+                : null;
+            return {
+              id: doc.id,
+              ...data,
+              createdAt: createdAt,
+            };
+          });
           setIncome(incomeData);
 
           if (!logsCollectionRef) {
@@ -110,7 +117,11 @@ const IncomePage = () => {
                   <div className="font-semi-bold capitalize sm:text-xl ">
                     {i.description}
                   </div>
-                  {/* <small>{i.createdAt.toLocaleDateString()}</small> */}
+                  <small>
+                    {i.createdAt instanceof Date
+                      ? i.createdAt.toLocaleDateString()
+                      : "Unknown Date"}
+                  </small>
                 </div>
 
                 <div className="flex h-full flex-col sm:flex-row sm:items-center items-end justify-between sm:justify-en w-2/4 pl-2">
