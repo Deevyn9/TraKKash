@@ -101,9 +101,7 @@ const Dashboard = () => {
     }
   }, [user]);
 
-  const handleOpenIncomeModal = () => setIsAddIncomeModalOpen(true);
   const handleCloseIncomeModal = () => setIsAddIncomeModalOpen(false);
-  const handleOpenExpenseModal = () => setIsAddExpenseModalOpen(true);
   const handleCloseExpenseModal = () => setIsAddExpenseModalOpen(false);
 
   const addIncomeHandler = async (e) => {
@@ -197,13 +195,13 @@ const Dashboard = () => {
           <div className="md:mb-10">
             <button
               className="dash-btn bg-green-600 cursor-pointer mr-5"
-              onClick={() => handleOpenIncomeModal()}
+              onClick={() => setIsAddIncomeModalOpen(true)}
             >
               Add Income
             </button>
             <button
               className="dash-btn bg-red-600 cursor-pointer"
-              onClick={() => handleOpenExpenseModal()}
+              onClick={() => setIsAddExpenseModalOpen(true)}
             >
               Add Expense
             </button>
