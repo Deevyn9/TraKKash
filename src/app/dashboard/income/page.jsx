@@ -1,7 +1,8 @@
 "use client";
 import { useState, useEffect } from "react";
-import { currencyFormatter } from "../../../../lib/utils";
-import { db } from "../../../../firebase";
+import Image from "next/image";
+import { currencyFormatter } from "@/lib/utils";
+import { db } from "@/firebase/index";
 import {
   collection,
   query,
@@ -12,6 +13,7 @@ import {
 } from "firebase/firestore";
 import { useUser } from "@clerk/nextjs";
 import Link from "next/link";
+import incomeIllustration from "@/public/assets/incomeillus.svg";
 
 const IncomePage = () => {
   const [income, setIncome] = useState([]);
@@ -77,7 +79,7 @@ const IncomePage = () => {
       setIncome((prevIncome) => prevIncome.filter((log) => log.id !== logId));
 
       const updatedIncome = income.filter((log) => log.id !== logId);
-      localStorage.setIncome("income", JSON.stringify(updatedIncome));
+      localStorage.setItem("income", JSON.stringify(updatedIncome));
     } catch (error) {
       console.error("Error deleting log:", error);
     }
@@ -152,12 +154,11 @@ const IncomePage = () => {
             );
           })
         ) : (
-          <div className="text-2xl capitalize place-self-center mt-28 md:mt-0 self-center">
-            nothing to show here
+          <div className="place-self-center mt-10 self-center">
+            <Image src={incomeIllustration} alt="no income logs" />
+            <p className="text-2xl text-center mt-5">Earn some more!</p>
           </div>
         )}
-
-        {}
       </div>
     </div>
   );
