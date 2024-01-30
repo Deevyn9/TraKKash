@@ -1,5 +1,5 @@
 import Image from "next/image";
-import CloseIcon from "../../../../public/assets/close.png";
+import CloseIcon from "@/public/assets/close.png";
 import React from "react";
 
 const AddExpenseModal = ({

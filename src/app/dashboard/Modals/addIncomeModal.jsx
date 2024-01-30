@@ -1,5 +1,5 @@
 import { React } from "react";
-import CloseIcon from "../../../../public/assets/close.png";
+import CloseIcon from "@/public/assets/close.png";
 import { Image } from "next/dist/client/image-component";
 
 const AddIncomeModal = ({
@@ -63,6 +63,7 @@ const AddIncomeModal = ({
           <button
             type="submit"
             className="mt-7 bg-green-600 rounded-md text-white px-3 py-2 self-end"
+            onClick={closeIncomeModal}
           >
             Add Income
           </button>
