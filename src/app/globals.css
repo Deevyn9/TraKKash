@@ -57,7 +57,7 @@
         border-width: 4px;
     }
 
-    .totals:first-of-type {
+    /* .totals:first-of-type {
         background-color: rgba(3, 218, 3, 0.203);
         border-color: rgb(3, 218, 3);
     }
@@ -65,7 +65,7 @@
     .totals:nth-of-type(2) {
         background-color: rgba(218, 3, 3, 0.203);
         border-color: rgb(218, 3, 3);
-    }
+    } */
 
     .totals > div {
         font-size: 30px;
