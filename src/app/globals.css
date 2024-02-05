@@ -102,3 +102,10 @@
         height: calc(100vh - 64px);
     }
 }
+
+
+@media (min-width: 1024px) {
+    .logs-container {
+        width: 800px;
+    }   
+}
