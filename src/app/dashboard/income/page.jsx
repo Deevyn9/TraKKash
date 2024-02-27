@@ -68,7 +68,7 @@ const IncomePage = () => {
   }, [user, logsCollectionRef, setLogsCollectionRef]);
 
   return (
-    <div className="nav-side__container md:w-4/5 w-screen lg:w-5/6 overflow-y-scroll pb-5">
+    <div className="nav-side__container w-screen overflow-y-scroll pb-5">
       <div className="nav-side flex flex-col p-4">
         <Link href="/dashboard">
           <p className="flex items-center mb-5 md:hidden">
@@ -90,40 +90,42 @@ const IncomePage = () => {
           </p>
         </Link>
 
-        {income.length > 0 ? (
-          income.map((i) => {
-            return (
-              <div
-                key={i.id}
-                className="flex justify-between items-center border-2 border-solid border-purple-600 h-24 p-4 rounded-lg mb-5  md:hover:bg-purple-300 transition-all"
-              >
-                <div className="h-full flex flex-col justify-between pr-2">
-                  <div className="font-semi-bold capitalize sm:text-xl ">
-                    {i.description}
+        <div className="w-full sm:w-80 sm:h-80 flex flex-col sm:flex-row sm:gap-8">
+          {income.length > 0 ? (
+            income.map((i) => {
+              return (
+                <div
+                  key={i.id}
+                  className="flex justify-between items-center border-2 border-solid border-purple-600 h-24 p-4 rounded-lg mb-5 sm:mb-0 md:hover:bg-purple-300 transition-all"
+                >
+                  <div className="h-full flex flex-col justify-between pr-2">
+                    <div className="font-semi-bold capitalize sm:text-xl ">
+                      {i.description}
+                    </div>
+                    <small>
+                      {i.createdAt instanceof Date
+                        ? i.createdAt.toLocaleDateString()
+                        : "Loading..."}
+                    </small>
                   </div>
-                  <small>
-                    {i.createdAt instanceof Date
-                      ? i.createdAt.toLocaleDateString()
-                      : "Loading..."}
-                  </small>
-                </div>
 
-                <div className="flex h-full flex-col sm:flex-row sm:items-center items-end justify-between sm:justify-en w-2/4 pl-2">
-                  <div className="w-full text-right ">
-                    <p className="sm:mr-3 text-green-600 sm:text-lg">
-                      {currencyFormatter(i.amount)}
-                    </p>
+                  <div className="flex h-full flex-col sm:flex-row sm:items-center items-end justify-between sm:justify-en w-2/4 pl-2">
+                    <div className="w-full text-right ">
+                      <p className="sm:mr-3 text-green-600 sm:text-lg">
+                        {currencyFormatter(i.amount)}
+                      </p>
+                    </div>
                   </div>
                 </div>
-              </div>
-            );
-          })
-        ) : (
-          <div className="place-self-center mt-10 self-center">
-            <Image src={incomeIllustration} alt="no income logs" />
-            <p className="text-2xl text-center mt-5">Earn some more!</p>
-          </div>
-        )}
+              );
+            })
+          ) : (
+            <div className="place-self-center mt-10 self-center">
+              <Image src={incomeIllustration} alt="no income logs" />
+              <p className="text-2xl text-center mt-5">Earn some more!</p>
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );
