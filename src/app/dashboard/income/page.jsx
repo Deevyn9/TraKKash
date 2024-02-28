@@ -90,31 +90,27 @@ const IncomePage = () => {
           </p>
         </Link>
 
-        <div className="w-full sm:w-80 sm:h-80 flex flex-col sm:flex-row sm:gap-8">
+        <div className="w-full flex flex-col sm:flex-row sm:gap-8 sm:flex-wrap">
           {income.length > 0 ? (
             income.map((i) => {
               return (
                 <div
                   key={i.id}
-                  className="flex justify-between items-center border-2 border-solid border-purple-600 h-24 p-4 rounded-lg mb-5 sm:mb-0 md:hover:bg-purple-300 transition-all"
+                  className="flex flex-col justify-between border-2 border-solid border-purple-600 h-24 p-4 rounded-lg mb-5 sm:mb-0 md:hover:bg-purple-300 transition-all sm:w-60 sm:h-52"
                 >
-                  <div className="h-full flex flex-col justify-between pr-2">
-                    <div className="font-semi-bold capitalize sm:text-xl ">
-                      {i.description}
-                    </div>
+                  <div className="font-semi-bold capitalize sm:text-xl ">
+                    {i.description}
+                  </div>
+
+                  <div className="flex sm:flex-col justify-between flex-row">
+                    <p className="sm:mr-3 text-green-600 sm:text-4xl sm:mb-7">
+                      {currencyFormatter(i.amount)}
+                    </p>
                     <small>
                       {i.createdAt instanceof Date
                         ? i.createdAt.toLocaleDateString()
                         : "Loading..."}
                     </small>
-                  </div>
-
-                  <div className="flex h-full flex-col sm:flex-row sm:items-center items-end justify-between sm:justify-en w-2/4 pl-2">
-                    <div className="w-full text-right ">
-                      <p className="sm:mr-3 text-green-600 sm:text-lg">
-                        {currencyFormatter(i.amount)}
-                      </p>
-                    </div>
                   </div>
                 </div>
               );
