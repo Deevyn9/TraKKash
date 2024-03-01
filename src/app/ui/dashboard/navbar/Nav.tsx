@@ -70,7 +70,7 @@ export default function Nav() {
       {openNav && (
         <div
           className={`absolute w-screen h-screen top-0 ${
-            openNav ? "left-0 bg-white" : "-left-8 bg-white"
+            openNav ? "left-0 bg-black" : "-left-8 bg-black"
           } p-2`}
         >
           <div className="w-full h-full rounded-lg">
