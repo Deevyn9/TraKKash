@@ -4,7 +4,7 @@
 
 @layer utilities {
   .dash-btn {
-    @apply w-28 h-10 md:w-32 md:h-12 text-white rounded-lg outline-none cursor-pointer mr-5;
+    @apply w-28 h-10 md:w-32 md:h-12 text-white rounded-lg outline-none cursor-pointer;
   }
 
   @media (max-width: 295px) {
@@ -36,7 +36,7 @@
   }
 
   .sidebar-links__main {
-    @apply h-20 flex mt-5 items-center text-xl;
+    @apply h-20 flex mb-5 items-center text-xl;
   }
 
   .totals__container {
@@ -74,7 +74,7 @@
 }
 
 .modal-bg {
-  background-color: rgba(128, 0, 128, 0.396);
+  background-color: rgba(10, 9, 10, 0.607);
 }
 
 .sun {

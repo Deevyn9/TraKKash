@@ -19,8 +19,6 @@ const Dashboard = () => {
   const [balance, setBalance] = useState(0);
   const [isAddIncomeModalOpen, setIsAddIncomeModalOpen] = useState(false);
   const [isAddExpenseModalOpen, setIsAddExpenseModalOpen] = useState(false);
-  const [confirmIncome, setConfirmIncome] = useState(false);
-  const [confirmExpense, setConfirmExpense] = useState(false);
   const [totalIncome, setTotalIncome] = useState(0);
   const [totalExpense, setTotalExpense] = useState(0);
   const incomeAmountRef = useRef();
@@ -105,7 +103,7 @@ const Dashboard = () => {
   const handleCloseExpenseModal = () => setIsAddExpenseModalOpen(false);
 
   const addIncomeHandler = async (e) => {
-    e.preventDefault();
+    // e.preventDefault();
 
     if (logsCollectionRef.current) {
       const newIncome = {
@@ -131,7 +129,7 @@ const Dashboard = () => {
   };
 
   const addExpenseHandler = async (e) => {
-    e.preventDefault();
+    // e.preventDefault();
 
     if (logsCollectionRef.current) {
       const newExpense = {
@@ -172,7 +170,6 @@ const Dashboard = () => {
         incomeDescriptionRef={incomeDescriptionRef}
         incomeAmountRef={incomeAmountRef}
         addIncomeHandler={addIncomeHandler}
-        confirmIncome={confirmIncome}
       />
       <AddExpenseModal
         isOpen={isAddExpenseModalOpen}
@@ -180,12 +177,11 @@ const Dashboard = () => {
         expenseDescriptionRef={expenseDescriptionRef}
         expenseAmountRef={expenseAmountRef}
         addExpenseHandler={addExpenseHandler}
-        confirmExpense={confirmExpense}
       />
 
-      <div className="w-full h-full p-5 md:px-6 md:py-5">
+      <div className="w-full h-full p-5 md:px-6 md:py-3">
         <div className="w-full">
-          <h3 className="md:text-2xl text-xl mb-2">My Balance</h3>
+          <h3 className="md:text-4xl text-xl mb-2">My Balance</h3>
           <div className="w-full">
             <p className="md:text-8xl text-4xl font-bold mb-5">
               {currencyFormatter(balance)}
