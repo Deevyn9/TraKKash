@@ -1,6 +1,6 @@
 import Image from "next/image";
 import CloseIcon from "@/public/assets/close.png";
-import React from "react";
+import React, { useState } from "react";
 
 const AddExpenseModal = ({
   isOpen,
@@ -8,29 +8,25 @@ const AddExpenseModal = ({
   addExpenseHandler,
   expenseDescriptionRef,
   expenseAmountRef,
-  confirmExpense,
 }) => {
+  const [toggleConfirmDiv, setToggleConfirmDiv] = useState(false);
+
   return (
     <div
       className={`${
         isOpen ? "flex" : "hidden"
       } justify-center items-center modal-bg h-screen w-screen absolute top-0 left-0 z-50`}
     >
-      {confirmExpense && (
-        <div className="absolute right-5 top-5 text-white bg-red-600 p-4 text-base rounded-lg">
-          <p>Sad to see your money go!</p>
-        </div>
-      )}
-      <div className="p-3 rounded-3xl bg-white w-11/12 sm:w-96 h-max border-2 border-solid border-black">
+      <div className="p-3 rounded-3xl bg-black w-11/12 sm:w-96 h-max border-2 border-solid border-black relative">
         <div
           className="flex items-center justify-center cursor-pointer font-2 rounded-full bg-white w-8 h-8 hover:scale-105 self-end transition-all"
           onClick={closeExpenseModal}
         >
           <Image src={CloseIcon} alt="close Icon" />
         </div>
-        <form className="my-7" onSubmit={addExpenseHandler}>
+        <form onSubmit={addExpenseHandler} className="my-10">
           <div className="flex flex-col mb-5">
-            <label htmlFor="Expense Amount" className="mb-2 text-black">
+            <label htmlFor="Expense Amount" className="mb-2">
               Expense Amount
             </label>
             <input
@@ -41,12 +37,12 @@ const AddExpenseModal = ({
               placeholder="$0.00"
               ref={expenseAmountRef}
               required
-              className="h-10 rounded-md p-3 outline-none text-black border-solid border-black border-2"
+              className="h-10 rounded-md p-3 outline-none text-white border-solid border-slate-300 border-1"
             />
           </div>
 
           <div className="flex flex-col">
-            <label htmlFor="Description" className="text-black mb-2">
+            <label htmlFor="Description" className="mb-2">
               Description
             </label>
             <input
@@ -56,16 +52,41 @@ const AddExpenseModal = ({
               required
               maxLength={10}
               ref={expenseDescriptionRef}
-              className="h-10 rounded-md p-3 outline-none text-black border-solid border-black border-2"
+              className="h-10 rounded-md p-3 outline-none text-white border-solid border-slate-300 border-1"
             />
           </div>
 
-          <button
-            type="submit"
-            className="mt-7 bg-red-600 rounded-md text-white px-3 py-2 self-end"
+          <div
+            className="mt-7 bg-red-600 rounded-md text-white px-3 py-2 self-end w-max cursor-pointer"
+            onClick={() => setToggleConfirmDiv(true)}
           >
             Add Expense
-          </button>
+          </div>
+
+          {toggleConfirmDiv && (
+            <div className="absolute bg-black w-full h-full top-0 left-0 rounded-3xl flex items-center justify-center">
+              <div className="dash-btn bg-red-500 grid place-items-center mr-5">
+                <button onClick={() => setToggleConfirmDiv(false)}>
+                  Cancel Add
+                </button>
+              </div>
+              <div className="dash-btn bg-green-500 mr-0 grid place-items-center">
+                <button
+                  type="submit"
+                  onClick={() => {
+                    {
+                      addExpenseHandler();
+                    }
+                    {
+                      closeExpenseModal();
+                    }
+                  }}
+                >
+                  Confirm Expense
+                </button>
+              </div>
+            </div>
+          )}
         </form>
       </div>
     </div>
