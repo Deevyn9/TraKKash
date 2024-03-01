@@ -96,7 +96,7 @@ const IncomePage = () => {
               return (
                 <div
                   key={i.id}
-                  className="flex flex-col justify-between border-2 border-solid border-white h-24 p-4 rounded-lg mb-5 sm:mb-0 transition-all sm:w-72 sm:h-52"
+                  className="flex flex-col justify-between bg-slate-950 border-2 border-solid border-slate-600 h-24 p-4 rounded-lg mb-5 sm:mb-0 transition-all sm:w-72 sm:h-52"
                 >
                   <div className="font-semi-bold capitalize sm:text-xl ">
                     {i.description}
