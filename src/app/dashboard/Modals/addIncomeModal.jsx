@@ -1,4 +1,4 @@
-import { React } from "react";
+import { React, useState } from "react";
 import CloseIcon from "@/public/assets/close.png";
 import { Image } from "next/dist/client/image-component";
 
@@ -10,18 +10,20 @@ const AddIncomeModal = ({
   addIncomeHandler,
   confirmIncome,
 }) => {
+  const [toggleConfirmDiv, setToggleConfirmDiv] = useState(false);
+
   return (
     <div
       className={`${
         isOpen ? "flex" : "hidden"
       } modal-bg justify-center items-center  h-screen w-screen absolute top-0 left-0 z-50`}
     >
-      {confirmIncome && (
+      {/* {confirmIncome && (
         <div className="absolute right-5 text-white top-5 bg-green-600 p-4 rounded-lg text-base">
           <p>Income Added Successfully</p>
         </div>
-      )}
-      <div className="p-3 rounded-3xl bg-white w-11/12 sm:w-96 h-max shadow-sm shadow-purple-500">
+      )} */}
+      <div className="p-3 rounded-3xl bg-white w-11/12 sm:w-96 h-max shadow-sm shadow-purple-500 relative">
         <div
           className="flex items-center justify-center cursor-pointer font-2 rounded-full bg-white w-8 h-8 hover:scale-105 self-end transition-all"
           onClick={closeIncomeModal}
@@ -60,13 +62,27 @@ const AddIncomeModal = ({
             />
           </div>
 
-          <button
-            type="submit"
+          <div
             className="mt-7 bg-green-600 rounded-md text-white px-3 py-2 self-end"
-            onClick={closeIncomeModal}
+            onClick={() => setToggleConfirmDiv(true)}
           >
             Add Income
-          </button>
+          </div>
+
+          {toggleConfirmDiv && (
+            <div className="absolute bg-white w-full h-full top-0 left-0 rounded-3xl flex items-center justify-center text-black">
+              <div className="dash-btn bg-red-500 grid place-items-center mr-5">
+                <button onClick={() => setToggleConfirmDiv(false)}>
+                  Cancel Add
+                </button>
+              </div>
+              <div className="dash-btn bg-green-500 mr-0 grid place-items-center">
+                <button type="submit" onClick={() => addIncomeHandler()}>
+                  Confirm Add
+                </button>
+              </div>
+            </div>
+          )}
         </form>
       </div>
     </div>
