@@ -90,13 +90,13 @@ const IncomePage = () => {
           </p>
         </Link>
 
-        <div className="w-full flex flex-col sm:flex-row sm:gap-8 sm:flex-wrap">
+        <div className="w-full flex flex-col sm:flex-row justify-center sm:gap-8 sm:flex-wrap pb-5">
           {income.length > 0 ? (
             income.map((i) => {
               return (
                 <div
                   key={i.id}
-                  className="flex flex-col justify-between bg-slate-950 border-2 border-solid border-slate-600 h-24 p-4 rounded-lg mb-5 sm:mb-0 transition-all sm:w-72 sm:h-52"
+                  className="flex flex-col justify-between bg-slate-950 border-2 border-solid border-slate-600 h-24 p-4 rounded-lg mb-5 sm:mb-0 transition-all sm:w-72 lg:w-80 sm:h-52"
                 >
                   <div className="font-semi-bold capitalize sm:text-xl ">
                     {i.description}
