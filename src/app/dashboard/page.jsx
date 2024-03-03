@@ -163,7 +163,7 @@ const Dashboard = () => {
   }
 
   return (
-    <div className="nav-side__container items-start w-screen md:w-4/5 overflow-y-scroll lg:w-5/6">
+    <div className="nav-side__container items-start w-screen overflow-y-scroll lg:w-5/6">
       <AddIncomeModal
         isOpen={isAddIncomeModalOpen}
         closeIncomeModal={handleCloseIncomeModal}
@@ -188,19 +188,24 @@ const Dashboard = () => {
             </p>
           </div>
 
-          <div className="md:mb-10">
-            <button
-              className="dash-btn bg-green-600 cursor-pointer mr-5"
-              onClick={() => setIsAddIncomeModalOpen(true)}
-            >
-              Add Income
-            </button>
-            <button
-              className="dash-btn bg-red-600 cursor-pointer"
-              onClick={() => setIsAddExpenseModalOpen(true)}
-            >
-              Add Expense
-            </button>
+          <div className=" md:mb-10 flex my-10">
+            <div className="dash-btn left">
+              <button
+                className="bg-green-600 cursor-pointer"
+                onClick={() => setIsAddIncomeModalOpen(true)}
+              >
+                Add Income
+              </button>
+            </div>
+
+            <div className="dash-btn right">
+              <button
+                className="bg-red-600 cursor-pointer"
+                onClick={() => setIsAddExpenseModalOpen(true)}
+              >
+                Add Expense
+              </button>
+            </div>
           </div>
         </div>
 
