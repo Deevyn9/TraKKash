@@ -68,7 +68,7 @@ const ExpensePage = () => {
   }, [user, logsCollectionRef, setLogsCollectionRef]);
 
   return (
-    <div className="nav-side__container w-screen md:w-4/5 lg:w-5/6 overflow-y-scroll pb-5">
+    <div className="nav-side__container w-screen lg:w-5/6 overflow-y-scroll pb-5">
       <div className="nav-side flex flex-col p-4">
         <Link href="/dashboard">
           <p className="flex items-center mb-5 md:hidden">
@@ -117,7 +117,7 @@ const ExpensePage = () => {
               );
             })
           ) : (
-            <div className="capitalize place-self-center mt-10 self-center">
+            <div className="capitalize place-self-center mt-10 justify-self-center">
               <Image src={expenseIllustration} alt="no expenses" />
               <p
                 className="text-2xl text-center mt-5098765432
