@@ -20,7 +20,7 @@ export default function Nav() {
         aria-label="Global"
         className="nav-side  flex justify-between items-center px-4"
       >
-        <div className="md:hidden z-40" onClick={handleOpenNav}>
+        <div className="lg:hidden z-50" onClick={handleOpenNav}>
           {openNav ? (
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -54,8 +54,8 @@ export default function Nav() {
           )}
         </div>
         <div className="flex lg:flex-1">
-          <a href="/" className="-m-1.5 p-1.5 font-semibold text-xl">
-            tra<span className="text-purple-500">kk</span>ash
+          <a href="/" className="-m-1.5 p-1.5 font-semibold text-xl capitalize">
+            trak<span className="text-purple-400">kash</span>
           </a>
         </div>
         {isLoaded && user && (
@@ -69,7 +69,7 @@ export default function Nav() {
       </nav>
       {openNav && (
         <div
-          className={`absolute w-screen h-screen top-0 ${
+          className={`absolute w-screen z-40 h-screen top-0 ${
             openNav ? "left-0 bg-black" : "-left-8 bg-black"
           } p-2`}
         >
