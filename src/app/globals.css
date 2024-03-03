@@ -2,18 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-@layer utilities {
-  .dash-btn {
-    @apply w-28 h-10 md:w-32 md:h-12 text-white rounded-lg outline-none cursor-pointer;
-  }
-
-  @media (max-width: 295px) {
-    .dash-btn {
-      @apply w-24 h-10 text-sm mb-3;
-    }
-  }
-}
-
 @layer components {
   .nav-side__container {
     @apply flex items-center justify-center;
@@ -46,6 +34,90 @@
     align-items: center;
   }
 
+  .dash-btn.left {
+    position: relative;
+    display: block;
+    left: 1px;
+    width: 160px;
+    height: 60px;
+    margin-right: 30px;
+    border: 2px solid rgb(168 85 247);
+    border-radius: 8px;
+    box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.25);
+    z-index: 1;
+  }
+
+  .dash-btn.left button {
+    display: grid;
+    place-items: center;
+    height: 100%;
+    width: 101%;
+    text-align: center;
+    background-color: rgb(168 85 247);
+    border: solid rgb(168 85 247);
+    border-width: 0 10px;
+    color: white;
+    font-size: 18px;
+    border-radius: 5px;
+    margin: -5% 0px -5% -5%;
+  }
+
+  .dash-btn.left button:hover {
+    transform: translateY(8px) translateX(7px);
+  }
+
+  .dash-btn button:focus {
+    outline: none;
+  }
+
+  .dash-btn.right {
+    position: relative;
+    display: block;
+    right: 1px;
+    width: 160px;
+    height: 60px;
+    border: 2px solid rgb(168 85 247);
+    border-radius: 8px;
+    box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.25);
+    z-index: 1;
+  }
+
+  .dash-btn.right button {
+    display: grid;
+    place-items: center;
+    height: 100%;
+    width: 100%;
+    border-radius: 5px;
+    background-color: rgb(168 85 247);
+    border: solid rgb(168 85 247);
+    border-width: 0 10px;
+    color: white;
+    font-size: 18px;
+    margin: 5% 0px 5% 5%;
+  }
+
+  .dash-btn.right button:hover {
+    transform: translateY(-8px) translateX(-8px);
+  }
+
+  @media (max-width: 399px) {
+    .dash-btn.left,
+    .dash-btn.right {
+      position: unset;
+      height: 50px;
+    }
+
+    .dash-btn.left {
+      margin-right: 20px;
+    }
+
+    .dash-btn.left button,
+    .dash-btn.right button {
+      margin: 0;
+      font-size: 5vw;
+    }
+  }
+
   .totals {
     width: 100%;
     height: 185px;
@@ -54,7 +126,10 @@
     flex-direction: column;
     justify-content: center;
     padding: 10px;
-    border-width: 4px;
+    border-style: solid;
+    border-width: 2px;
+    border-color: slategrey;
+    border-radius: 20px;
   }
 
   .totals > div {
@@ -99,9 +174,3 @@
     height: calc(100vh - 64px);
   }
 }
-
-/* @media (min-width: 1024px) {
-    .logs-container {
-        width: 800px;
-    }   
-} */
