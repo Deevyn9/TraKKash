@@ -19,7 +19,7 @@ const AddIncomeModal = ({
     >
       <div className="p-3 rounded-3xl bg-black w-11/12 sm:w-96 h-max relative">
         <div
-          className="flex items-center justify-center cursor-pointer font-2 rounded-full bg-white w-8 h-8 hover:scale-105 self-end transition-all"
+          className="flex items-center justify-center cursor-pointer font-2 rounded-full bg-gray-600 w-8 h-8 hover:scale-105 self-end transition-all"
           onClick={closeIncomeModal}
         >
           <Image src={CloseIcon} alt="close Icon" />
@@ -37,7 +37,7 @@ const AddIncomeModal = ({
               placeholder="$0.00"
               ref={incomeAmountRef}
               required
-              className="h-10 rounded-md p-3 outline-none bg-gray-950 text-white border-1 border-solid border-slate-300"
+              className="h-10 rounded-md p-3 outline-none bg-gray-600 text-white border-1 border-solid border-slate-300"
             />
           </div>
 
@@ -52,12 +52,12 @@ const AddIncomeModal = ({
               required
               maxLength={10}
               ref={incomeDescriptionRef}
-              className="h-10 rounded-md p-3 outline-none text-white bg-gray-950"
+              className="h-10 rounded-md p-3 outline-none text-white bg-gray-600"
             />
           </div>
 
           <div
-            className="mt-7 bg-green-600 rounded-md text-white px-3 py-2 self-end w-max cursor-pointer"
+            className="mt-7 bg-purple-500 rounded-md text-white w-32 h-12 self-end cursor-pointer grid place-items-center"
             onClick={() => setToggleConfirmDiv(true)}
           >
             Add Income
@@ -65,12 +65,12 @@ const AddIncomeModal = ({
 
           {toggleConfirmDiv && (
             <div className="absolute bg-black w-full h-full top-0 left-0 rounded-3xl flex items-center justify-center text-black">
-              <div className="dash-btn bg-red-500 grid place-items-center mr-5">
+              <div className="cta border-2 border-solid border-purple-500 grid place-items-center w-32 rounded-md h-12 text-white mr-5">
                 <button onClick={() => setToggleConfirmDiv(false)}>
                   Cancel Add
                 </button>
               </div>
-              <div className="dash-btn bg-green-500 mr-0 grid place-items-center">
+              <div className="dash-btn bg-purple-500 rounded-md w-32 h-12 text-white mr-0 grid place-items-center">
                 <button
                   type="submit"
                   onClick={() => {
