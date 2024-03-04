@@ -179,7 +179,7 @@ const Dashboard = () => {
         addExpenseHandler={addExpenseHandler}
       />
 
-      <div className="w-full h-full p-5 md:px-6 md:py-3">
+      <div className="w-full h-full px-5 py-3 md:px-6 md:py-3">
         <div className="w-full">
           <h3 className="md:text-4xl text-xl mb-2">My Balance</h3>
           <div className="w-full">
@@ -188,10 +188,10 @@ const Dashboard = () => {
             </p>
           </div>
 
-          <div className=" md:mb-10 flex my-10">
+          <div className=" md:mb-10 flex my-5 sm:my-10">
             <div className="dash-btn left">
               <button
-                className="bg-green-600 cursor-pointer"
+                className="cursor-pointer"
                 onClick={() => setIsAddIncomeModalOpen(true)}
               >
                 Add Income
@@ -200,7 +200,7 @@ const Dashboard = () => {
 
             <div className="dash-btn right">
               <button
-                className="bg-red-600 cursor-pointer"
+                className="cursor-pointer"
                 onClick={() => setIsAddExpenseModalOpen(true)}
               >
                 Add Expense
@@ -210,29 +210,29 @@ const Dashboard = () => {
         </div>
 
         <div className="totals__container flex flex-wrap lg:flex-row lg:flex-nowrap lg:gap-10">
-          <div className="totals md:h-80">
+          <div className="totals md:h-80 2xl:w-5/12">
             <h3 className="md:text-2xl font-semibold">Total Income</h3>
-            <div className="md:mb-10">
+            <div className="mb-10">
               <p className="md:text-6xl">{currencyFormatter(totalIncome)}</p>
             </div>
 
             {totalIncome > 0 ? (
               <Link href="/dashboard/income">
-                <p className="text-lg">More details</p>
+                <p className="text-base md:text-lg">More details</p>
               </Link>
             ) : (
               <div></div>
             )}
           </div>
-          <div className="totals md:h-80 md:w">
+          <div className="totals md:h-80 2xl:w-5/12">
             <h3 className="md:text-2xl font-semibold">Total Expenses</h3>
-            <div className="md:mb-10">
+            <div className="mb-10">
               <p className="md:text-6xl">{currencyFormatter(totalExpense)}</p>
             </div>
 
             {totalExpense > 0 ? (
               <Link href="/dashboard/expenses">
-                <p className="text-lg">More details</p>
+                <p className="text-base md:text-lg">More details</p>
               </Link>
             ) : (
               <div></div>
