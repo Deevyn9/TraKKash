@@ -17,7 +17,7 @@ const AddIncomeModal = ({
         isOpen ? "flex" : "hidden"
       } modal-bg justify-center items-center  h-screen w-screen absolute top-0 left-0 z-50`}
     >
-      <div className="p-3 rounded-3xl bg-black w-11/12 sm:w-96 h-max relative">
+      <div className="modal p-3 rounded-3xl bg-black w-11/12 sm:w-96 h-max relative">
         <div
           className="flex items-center justify-center cursor-pointer font-2 rounded-full bg-gray-600 w-8 h-8 hover:scale-105 self-end transition-all"
           onClick={closeIncomeModal}
@@ -65,7 +65,7 @@ const AddIncomeModal = ({
 
           {toggleConfirmDiv && (
             <div className="absolute bg-black w-full h-full top-0 left-0 rounded-3xl flex items-center justify-center text-black">
-              <div className="cta border-2 border-solid border-purple-500 grid place-items-center w-32 rounded-md h-12 text-white mr-5">
+              <div className="border-2 border-solid border-purple-500 grid place-items-center w-32 rounded-md h-12 text-white mr-5">
                 <button onClick={() => setToggleConfirmDiv(false)}>
                   Cancel Add
                 </button>

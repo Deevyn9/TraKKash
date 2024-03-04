@@ -17,7 +17,7 @@ const AddExpenseModal = ({
         isOpen ? "flex" : "hidden"
       } justify-center items-center modal-bg h-screen w-screen absolute top-0 left-0 z-50`}
     >
-      <div className="p-3 rounded-3xl bg-black w-11/12 sm:w-96 h-max border-2 border-solid border-black relative">
+      <div className="modal p-3 rounded-3xl bg-black w-11/12 sm:w-96 h-max border-2 border-solid border-black relative">
         <div
           className="flex items-center justify-center cursor-pointer font-2 rounded-full bg-gray-600 w-8 h-8 hover:scale-105 self-end transition-all"
           onClick={closeExpenseModal}
