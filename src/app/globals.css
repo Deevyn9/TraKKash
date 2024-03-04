@@ -34,6 +34,17 @@
     align-items: center;
   }
 
+  .modal {
+    box-shadow: 1px 1px 15px 1px rgba(169, 85, 247, 0.75);
+    -webkit-box-shadow: 1px 1px 15px 1px rgba(169, 85, 247, 0.75);
+    -moz-box-shadow: 1px 1px 15px 1px rgba(169, 85, 247, 0.75);
+  }
+
+  .totals,
+  .logs {
+    background-color: rgba(169, 85, 247, 0.129);
+  }
+
   .dash-btn.left {
     position: relative;
     display: block;
@@ -85,7 +96,7 @@
   .dash-btn.right button {
     display: grid;
     place-items: center;
-    height: 100%;
+    height: 101%;
     width: 100%;
     border-radius: 5px;
     background-color: rgb(168 85 247);
@@ -149,7 +160,7 @@
 }
 
 .modal-bg {
-  background-color: rgba(10, 9, 10, 0.607);
+  background-color: rgba(10, 9, 10, 0.873);
 }
 
 .sun {
