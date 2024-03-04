@@ -6,7 +6,7 @@ const Sidebar = () => {
   const pathname = usePathname();
 
   return (
-    <div className="lg:nav-side__container hidden w-1/5 lg:w-2/12 h-full border-r-2 border-black border-solid border-0">
+    <div className="lg:nav-side__container hidden lg:w-1/5 xl:w-2/12 h-full border-r-2 border-black border-solid border-0">
       <ul className="nav-side">
         <Link href="/dashboard" className={`sidebar-links__main`}>
           <li className="h-full w-full flex items-center px-2 capitalize">
