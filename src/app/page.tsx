@@ -23,17 +23,11 @@ export default function Home() {
       </div>
 
       <div className="flex gap-5">
-        <Link
-          href="/sign-in"
-          className="home-btn sm:border-8 text-white border-solid border-purple-500 bg-purple-500 rounded-md sm:py-2 sm:px-10 transition-all hover:bg-transparent text-lg"
-        >
+        <Link href="/sign-in" className="dash-btn left">
           <button className="w-full h-full">Sign In</button>
         </Link>
 
-        <Link
-          href="/sign-up"
-          className="home-btn sm:border-8 border-2 border-solid border-purple-500 rounded-md sm:py-2 sm:px-10 transition-all hover:bg-purple-500 text-lg"
-        >
+        <Link href="/sign-up" className="dash-btn right">
           <button className="w-full h-full">Sign Up</button>
         </Link>
       </div>
