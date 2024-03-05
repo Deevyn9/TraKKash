@@ -21,6 +21,7 @@ const Dashboard = () => {
   const [isAddExpenseModalOpen, setIsAddExpenseModalOpen] = useState(false);
   const [totalIncome, setTotalIncome] = useState(0);
   const [totalExpense, setTotalExpense] = useState(0);
+  // const [activateExpenseButton, setActivateExpenseButton] = useState(false);
   const incomeAmountRef = useRef();
   const incomeDescriptionRef = useRef();
   const expenseAmountRef = useRef();
@@ -103,7 +104,7 @@ const Dashboard = () => {
   const handleCloseExpenseModal = () => setIsAddExpenseModalOpen(false);
 
   const addIncomeHandler = async (e) => {
-    // e.preventDefault();
+    e.preventDefault();
 
     if (logsCollectionRef.current) {
       const newIncome = {
@@ -119,17 +120,13 @@ const Dashboard = () => {
         console.error("Error adding income:", error.message);
       }
 
-      setConfirmIncome(true);
-      setTimeout(() => {
-        setConfirmIncome(false);
-      }, 3000);
       incomeAmountRef.current.value = "";
       incomeDescriptionRef.current.value = "";
     }
   };
 
   const addExpenseHandler = async (e) => {
-    // e.preventDefault();
+    e.preventDefault();
 
     if (logsCollectionRef.current) {
       const newExpense = {
@@ -145,12 +142,16 @@ const Dashboard = () => {
         console.error("Error adding expense:", error.message);
       }
 
-      setConfirmExpense(true);
-      setTimeout(() => {
-        setConfirmExpense(false);
-      }, 3000);
       expenseAmountRef.current.value = "";
       expenseDescriptionRef.current.value = "";
+      // if (
+      //   expenseDescriptionRef.current.value == "" &&
+      //   expenseAmountRef.current.value == ""
+      // ) {
+      //   setActivateExpenseButton(false);
+      // } else {
+      //   setActivateExpenseButton(true);
+      // }
     }
   };
 
@@ -177,6 +178,7 @@ const Dashboard = () => {
         expenseDescriptionRef={expenseDescriptionRef}
         expenseAmountRef={expenseAmountRef}
         addExpenseHandler={addExpenseHandler}
+        // activateExpenseButton={activateExpenseButton}
       />
 
       <div className="w-full h-full px-5 py-3 md:px-6 md:py-3">

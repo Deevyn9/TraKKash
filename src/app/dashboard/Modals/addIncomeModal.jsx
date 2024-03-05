@@ -71,19 +71,7 @@ const AddIncomeModal = ({
                 </button>
               </div>
               <div className="dash-btn bg-purple-500 rounded-md w-32 h-12 text-white mr-0 grid place-items-center">
-                <button
-                  type="submit"
-                  onClick={() => {
-                    {
-                      addIncomeHandler();
-                    }
-                    {
-                      closeIncomeModal();
-                    }
-                  }}
-                >
-                  Confirm Income
-                </button>
+                <button type="submit">Confirm Income</button>
               </div>
             </div>
           )}

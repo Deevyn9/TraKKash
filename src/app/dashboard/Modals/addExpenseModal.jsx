@@ -1,6 +1,6 @@
 import Image from "next/image";
 import CloseIcon from "@/public/assets/close.png";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 const AddExpenseModal = ({
   isOpen,
@@ -8,8 +8,20 @@ const AddExpenseModal = ({
   addExpenseHandler,
   expenseDescriptionRef,
   expenseAmountRef,
+  // activateExpenseButton,
 }) => {
   const [toggleConfirmDiv, setToggleConfirmDiv] = useState(false);
+  const [amountFilled, setAmountFilled] = useState(false);
+  const [descriptionFilled, setDescriptionFilled] = useState(false);
+
+  useEffect(() => {
+    setAmountFilled(
+      !!expenseAmountRef.current && !!expenseAmountRef.current.value
+    );
+    setDescriptionFilled(
+      !!expenseDescriptionRef && !!expenseDescriptionRef.current.value
+    );
+  }, [expenseDescriptionRef, expenseAmountRef]);
 
   return (
     <div
@@ -57,7 +69,11 @@ const AddExpenseModal = ({
           </div>
 
           <div
-            className="mt-7 bg-purple-600 rounded-md text-white w-32 h-12 px-3 py-2 self-end grid place-content-center cursor-pointer"
+            className={`mt-7 bg-purple-600 ${
+              !amountFilled || descriptionFilled
+                ? "pointer-events-auto opacity-100"
+                : "pointer-events-none opacity-50"
+            } rounded-md text-white w-32 h-12 px-3 py-2 self-end grid place-content-center cursor-pointer`}
             onClick={() => setToggleConfirmDiv(true)}
           >
             Add Expense
@@ -71,19 +87,7 @@ const AddExpenseModal = ({
                 </button>
               </div>
               <div className="dash-btn bg-purple-500 rounded-md w-32 h-12 mr-0 grid place-items-center">
-                <button
-                  type="submit"
-                  onClick={() => {
-                    {
-                      addExpenseHandler();
-                    }
-                    {
-                      closeExpenseModal();
-                    }
-                  }}
-                >
-                  Confirm Expense
-                </button>
+                <button type="submit">Confirm Expense</button>
               </div>
             </div>
           )}
