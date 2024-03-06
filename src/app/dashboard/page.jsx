@@ -21,7 +21,8 @@ const Dashboard = () => {
   const [isAddExpenseModalOpen, setIsAddExpenseModalOpen] = useState(false);
   const [totalIncome, setTotalIncome] = useState(0);
   const [totalExpense, setTotalExpense] = useState(0);
-  // const [activateExpenseButton, setActivateExpenseButton] = useState(false);
+  const [toggleConfirmExpenseDiv, setToggleConfirmExpenseDiv] = useState(false);
+  const [toggleConfirmIncomeDiv, setToggleConfirmIncomeDiv] = useState(false);
   const incomeAmountRef = useRef();
   const incomeDescriptionRef = useRef();
   const expenseAmountRef = useRef();
@@ -103,6 +104,11 @@ const Dashboard = () => {
   const handleCloseIncomeModal = () => setIsAddIncomeModalOpen(false);
   const handleCloseExpenseModal = () => setIsAddExpenseModalOpen(false);
 
+  const handleOpenConfirmIncomeDiv = () => setToggleConfirmIncomeDiv(true);
+  const handleCloseConfirmIncomeDiv = () => setToggleConfirmIncomeDiv(false);
+  const handleOpenConfirmExpenseDiv = () => setToggleConfirmExpenseDiv(true);
+  const handleCloseConfirmExpenseDiv = () => setToggleConfirmExpenseDiv(false);
+
   const addIncomeHandler = async (e) => {
     e.preventDefault();
 
@@ -122,6 +128,8 @@ const Dashboard = () => {
 
       incomeAmountRef.current.value = "";
       incomeDescriptionRef.current.value = "";
+      setToggleConfirmIncomeDiv(false);
+      handleCloseIncomeModal();
     }
   };
 
@@ -144,14 +152,8 @@ const Dashboard = () => {
 
       expenseAmountRef.current.value = "";
       expenseDescriptionRef.current.value = "";
-      // if (
-      //   expenseDescriptionRef.current.value == "" &&
-      //   expenseAmountRef.current.value == ""
-      // ) {
-      //   setActivateExpenseButton(false);
-      // } else {
-      //   setActivateExpenseButton(true);
-      // }
+      setToggleConfirmExpenseDiv(false);
+      handleCloseExpenseModal();
     }
   };
 
@@ -171,6 +173,9 @@ const Dashboard = () => {
         incomeDescriptionRef={incomeDescriptionRef}
         incomeAmountRef={incomeAmountRef}
         addIncomeHandler={addIncomeHandler}
+        toggleConfirmIncomeDiv={toggleConfirmIncomeDiv}
+        handleOpenConfirmIncomeDiv={handleOpenConfirmIncomeDiv}
+        handleCloseConfirmIncomeDiv={handleCloseConfirmIncomeDiv}
       />
       <AddExpenseModal
         isOpen={isAddExpenseModalOpen}
@@ -178,6 +183,9 @@ const Dashboard = () => {
         expenseDescriptionRef={expenseDescriptionRef}
         expenseAmountRef={expenseAmountRef}
         addExpenseHandler={addExpenseHandler}
+        toggleConfirmExpenseDiv={toggleConfirmExpenseDiv}
+        handleOpenConfirmExpenseDiv={handleOpenConfirmExpenseDiv}
+        handleCloseConfirmExpenseDiv={handleCloseConfirmExpenseDiv}
         // activateExpenseButton={activateExpenseButton}
       />
 
