@@ -8,6 +8,9 @@ const AddIncomeModal = ({
   incomeDescriptionRef,
   incomeAmountRef,
   addIncomeHandler,
+  toggleConfirmIncomeDiv,
+  handleOpenConfirmIncomeDiv,
+  handleCloseConfirmIncomeDiv,
 }) => {
   const [toggleConfirmDiv, setToggleConfirmDiv] = useState(false);
 
@@ -58,20 +61,20 @@ const AddIncomeModal = ({
 
           <div
             className="mt-7 bg-purple-500 rounded-md text-white w-32 h-12 self-end cursor-pointer grid place-items-center"
-            onClick={() => setToggleConfirmDiv(true)}
+            onClick={handleOpenConfirmIncomeDiv}
           >
             Add Income
           </div>
 
-          {toggleConfirmDiv && (
-            <div className="absolute bg-black w-full h-full top-0 left-0 rounded-3xl flex items-center justify-center text-black">
-              <div className="border-2 border-solid border-purple-500 grid place-items-center w-32 rounded-md h-12 text-white mr-5">
-                <button onClick={() => setToggleConfirmDiv(false)}>
+          {toggleConfirmIncomeDiv && (
+            <div className="absolute bg-black w-full h-full top-0 left-0 rounded-3xl flex items-center justify-center text-black px-2">
+              <div className="border-2 border-solid border-purple-500 grid place-items-center w-32 rounded-md h-12 text-white mr-2 sm:mr-5">
+                <button onClick={handleCloseConfirmIncomeDiv}>
                   Cancel Add
                 </button>
               </div>
-              <div className="dash-btn bg-purple-500 rounded-md w-32 h-12 text-white mr-0 grid place-items-center">
-                <button type="submit">Confirm Income</button>
+              <div className="bg-purple-500 rounded-md w-32 h-12 text-white mr-0 grid place-items-center">
+                <button type="submit">Confirm Add</button>
               </div>
             </div>
           )}

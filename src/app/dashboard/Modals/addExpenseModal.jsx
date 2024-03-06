@@ -1,6 +1,5 @@
 import Image from "next/image";
 import CloseIcon from "@/public/assets/close.png";
-import React, { useEffect, useState } from "react";
 
 const AddExpenseModal = ({
   isOpen,
@@ -8,21 +7,10 @@ const AddExpenseModal = ({
   addExpenseHandler,
   expenseDescriptionRef,
   expenseAmountRef,
-  // activateExpenseButton,
+  toggleConfirmExpenseDiv,
+  handleOpenConfirmExpenseDiv,
+  handleCloseConfirmExpenseDiv,
 }) => {
-  const [toggleConfirmDiv, setToggleConfirmDiv] = useState(false);
-  const [amountFilled, setAmountFilled] = useState(false);
-  const [descriptionFilled, setDescriptionFilled] = useState(false);
-
-  useEffect(() => {
-    setAmountFilled(
-      !!expenseAmountRef.current && !!expenseAmountRef.current.value
-    );
-    setDescriptionFilled(
-      !!expenseDescriptionRef && !!expenseDescriptionRef.current.value
-    );
-  }, [expenseDescriptionRef, expenseAmountRef]);
-
   return (
     <div
       className={`${
@@ -69,25 +57,21 @@ const AddExpenseModal = ({
           </div>
 
           <div
-            className={`mt-7 bg-purple-600 ${
-              !amountFilled || descriptionFilled
-                ? "pointer-events-auto opacity-100"
-                : "pointer-events-none opacity-50"
-            } rounded-md text-white w-32 h-12 px-3 py-2 self-end grid place-content-center cursor-pointer`}
-            onClick={() => setToggleConfirmDiv(true)}
+            className={`mt-7 bg-purple-600 rounded-md text-white w-32 h-12 px-3 py-2 self-end grid place-content-center cursor-pointer`}
+            onClick={handleOpenConfirmExpenseDiv}
           >
             Add Expense
           </div>
 
-          {toggleConfirmDiv && (
-            <div className="absolute bg-black w-full h-full top-0 left-0 rounded-3xl flex items-center justify-center">
+          {toggleConfirmExpenseDiv && (
+            <div className="absolute bg-black w-full h-full top-0 left-0 rounded-3xl flex items-center justify-center px-2">
               <div className="border-2 border-solid border-purple-500 grid place-items-center mr-5 rounded-md w-32 h-12">
-                <button onClick={() => setToggleConfirmDiv(false)}>
+                <button onClick={handleCloseConfirmExpenseDiv}>
                   Cancel Add
                 </button>
               </div>
               <div className="dash-btn bg-purple-500 rounded-md w-32 h-12 mr-0 grid place-items-center">
-                <button type="submit">Confirm Expense</button>
+                <button type="submit">Confirm Add</button>
               </div>
             </div>
           )}
