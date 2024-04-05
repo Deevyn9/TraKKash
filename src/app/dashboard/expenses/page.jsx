@@ -2,14 +2,7 @@
 import { useState, useEffect } from "react";
 import { currencyFormatter } from "@/lib/utils";
 import { db } from "@/firebase/index";
-import {
-  collection,
-  query,
-  getDocs,
-  where,
-  doc,
-  deleteDoc,
-} from "firebase/firestore";
+import { collection, query, getDocs, where } from "firebase/firestore";
 import { useUser } from "@clerk/nextjs";
 import Link from "next/link";
 import expenseIllustration from "@/public/assets/expenseillus.svg";

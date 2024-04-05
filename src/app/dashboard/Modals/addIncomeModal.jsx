@@ -12,8 +12,6 @@ const AddIncomeModal = ({
   handleOpenConfirmIncomeDiv,
   handleCloseConfirmIncomeDiv,
 }) => {
-  const [toggleConfirmDiv, setToggleConfirmDiv] = useState(false);
-
   return (
     <div
       className={`${

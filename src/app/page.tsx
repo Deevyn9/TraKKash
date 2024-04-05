@@ -15,7 +15,7 @@ export default function Home() {
 
       <div className="mb-8">
         <h1 className="font-black text-5xl text-center sm:text-9xl">
-          traKKash<span className="text-purple-500">.</span>
+          Trakkash<span className="text-purple-500">.</span>
         </h1>
         <p className="text-lg sm:text-2xl text-center">
           Know where your money goes{" "}

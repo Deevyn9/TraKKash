@@ -3,14 +3,7 @@ import { useState, useEffect } from "react";
 import Image from "next/image";
 import { currencyFormatter } from "@/lib/utils";
 import { db } from "@/firebase/index";
-import {
-  collection,
-  query,
-  getDocs,
-  where,
-  doc,
-  deleteDoc,
-} from "firebase/firestore";
+import { collection, query, getDocs, where } from "firebase/firestore";
 import { useUser } from "@clerk/nextjs";
 import Link from "next/link";
 import incomeIllustration from "@/public/assets/incomeillus.svg";

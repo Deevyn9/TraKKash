@@ -186,7 +186,6 @@ const Dashboard = () => {
         toggleConfirmExpenseDiv={toggleConfirmExpenseDiv}
         handleOpenConfirmExpenseDiv={handleOpenConfirmExpenseDiv}
         handleCloseConfirmExpenseDiv={handleCloseConfirmExpenseDiv}
-        // activateExpenseButton={activateExpenseButton}
       />
 
       <div className="w-full h-full px-5 py-3 md:px-6 md:py-3">
